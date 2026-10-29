@@ -1,3 +1,16 @@
+# Portfolio v2.0.0 — Hidden Arcade
+
+- Replaced the small runner with a linear, multi-scene desktop Easter egg.
+- Two monochrome obstacles lead to a door and a viewport-sized expansion.
+- Added a colour platformer with a collectible lantern, a top-down sustained-light monster arena and a stylized perspective finale.
+- Added three shared hearts, hit invulnerability, game over, restart, pause and an exit back to the page.
+- Added optional locally synthesized sound and music, disabled by default.
+- Added a partly concealed final music door linking to Never Gonna Give You Up. No auto-play or automatic external navigation.
+- Added engine checks for transitions, actual platform jumping, lantern pickup, beam damage, lives and reset.
+- Desktop keyboard/mouse gameplay only; no 3D shooter. See docs/ARCADE.md for controls and testing limits.
+
+---
+
 # Portfolio v1.0.1 — Motion & Typography Fixes
 
 - Replaced the projector's separate motion phases with one continuous rail and smooth quintic timing.

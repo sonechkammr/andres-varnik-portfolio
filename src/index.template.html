@@ -8,6 +8,8 @@
 /* @inline styles/controls.css */
 </style><style>
 /* @inline styles/gallery.css */
+</style><style>
+/* @inline styles/easter-egg.css */
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><a class="brand" href="#top">Andres Värnik <small>Tallinn, Estonia</small></a><button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button><nav id="nav" aria-label="Main"><a href="#approach">Approach</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#photography" id="photo-nav">Photography</a><a href="#about">About</a><a class="btn btn-ghost" href="#contact">Contact</a></nav><div class="header-controls"><button id="lantern-switch" class="lantern-switch" type="button" aria-pressed="true" aria-label="Turn lantern off"><svg viewBox="0 0 28 34" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 9V6a5 5 0 0110 0v3M7 12h14l2 16H5zM9 9h10l3 3H6zM6 29h16M4 32h20"/><path d="M14 15c0 3-4 4-3 7a3 3 0 006 0c1-3-1-5-3-7z" class="flame" fill="currentColor" stroke="none"/></svg></button><div class="language-switch" role="group" aria-label="Language"><button type="button" data-language="en" aria-pressed="true">EN</button><button type="button" data-language="et" aria-pressed="false">ET</button></div></div></header>
@@ -54,7 +56,7 @@
 <section class="about wrap" id="about"><div class="reveal"><h2>Hi, I’m Andres.</h2></div><div class="reveal"><p>I’m a technical support engineer in Tallinn. My work sits between software and the people using it: collecting evidence, asking better questions, and explaining what happens next.</p><p>I like helping new colleagues get confident, and I use AI-assisted prototypes to turn small ideas into something that works.</p><ul class="languages"><li>English<span>C1</span></li><li>Russian<span>Native</span></li><li>Estonian<span>B1–B2, spoken</span></li></ul></div></section>
 
 <section class="contact" id="contact"><div class="wrap"><h2 class="reveal">Write to me.</h2><p class="contact-sub reveal">Based in Tallinn. Open to remote, hybrid or on-site work.</p><a class="email reveal" href="mailto:viva.la.nick13@gmail.com">viva.la.nick13@gmail.com <span class="arr">↗</span></a><div class="contact-actions reveal"><button class="btn copy-btn" id="copy-email"><span class="idle">Copy email</span><span class="done">Copied ✓</span></button><a class="btn cv-link" href="#" download="Andres-Varnik-CV.pdf">Download CV <span class="arr out">↗</span></a></div><div id="copy-status" class="sr-only" role="status"></div>
-<section class="runner-game reveal" aria-labelledby="runner-title"><div class="runner-top"><h3 id="runner-title">Jump the symbols</h3><span id="runner-score" class="runner-score">0 / 12</span></div><p class="runner-intro">Twelve keyboard symbols. Space, ↑, click or tap to jump.</p><div class="runner-track" id="runner-track" role="button" tabindex="0" aria-label="Runner game. Press Space, Arrow Up, or tap to start and jump. Escape pauses." aria-describedby="runner-status"><img id="runner-character" src="{{asset:assets/illustrations/pixel-scene-08.webp}}" alt="" aria-hidden="true"><div class="runner-ground" aria-hidden="true"></div><div id="runner-obstacles" aria-hidden="true"></div><div class="runner-prompt" id="runner-prompt">Press Space or tap to start</div></div><div class="runner-bottom"><p id="runner-status" role="status" aria-live="polite">Takes about 20 seconds.</p><div class="runner-controls"><button type="button" id="runner-pause" disabled>Pause</button><button type="button" id="runner-restart">Restart</button></div></div><p class="runner-win" id="runner-win" hidden>All twelve cleared. Got a real bug to chase? <a href="mailto:viva.la.nick13@gmail.com">Email me ↗</a></p></section>
+<section class="egg" id="egg" aria-label="Hidden arcade" data-no-translate><div class="egg-screen"><canvas id="runner-track" width="960" height="540" tabindex="0"></canvas><a class="egg-secret" id="egg-secret" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" aria-label="Enter the secret music door" hidden></a></div><div class="egg-toolbar"><small>SPACE / ↑ · WASD · MOUSE</small><button id="egg-sound" type="button" aria-pressed="false" aria-label="Enable sound">♫</button><button id="egg-pause" type="button" aria-label="Pause / resume">Ⅱ</button><button id="egg-restart" type="button" hidden>Restart</button><button id="egg-exit" type="button" aria-label="Close game" hidden>×</button></div></section>
 <footer class="footer"><span>© <span id="year">2026</span> Andres Värnik</span><a href="#top">Back to top ↑</a></footer></div></section></main>
 
 <script>
@@ -63,4 +65,6 @@
 // @inline scripts/controls.js
 </script><script>
 // @inline scripts/gallery.js
+</script><script>
+// @inline scripts/easter-egg.js
 </script></body></html>

@@ -8,7 +8,7 @@ import assert from 'node:assert/strict';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const html = await readFile(path.join(root, 'index.html'), 'utf8');
 const scripts = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)];
-assert.equal(scripts.length, 3, 'Main, controls and photography scripts must be present.');
+assert.equal(scripts.length, 4, 'Main, controls, photography and arcade scripts must be present.');
 scripts.forEach((match, index) => new Script(match[1], { filename: `inline-${index}.js` }));
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
 assert.equal(new Set(ids).size, ids.length, 'Duplicate HTML IDs.');
@@ -30,3 +30,5 @@ for (const [index, match] of [...wheel.matchAll(/<script\b[^>]*>([\s\S]*?)<\/scr
 console.log(`Passed: ${scripts.length} scripts, ${ids.length} unique IDs, 15 photos, ${manifest.length} intact assets and the embedded Practice Wheel.`);
 console.log('These static checks do not replace browser, touch or screen-reader testing.');
 await import('./check-motion.mjs');
+
+await import('./check-arcade.mjs');

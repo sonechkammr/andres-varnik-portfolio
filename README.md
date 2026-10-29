@@ -19,7 +19,7 @@ The live portfolio is publicly available through GitHub Pages. You can also down
 | Experience and skills | Technical support, SQL and API diagnostics, logs, reproductions, developer escalations and mentoring. |
 | Personal projects | Mind Garden, a Buddhist-inspired Android app for meditation, journaling and daily check-ins; a Practice Wheel; singing in three bands; and my writing channel. |
 | Photography | Fifteen of my photographs in a shuffled slide-projector deck. Cards turn edge-on, retreat into depth and bring the next frame forward. |
-| A small runner | A pixel character jumps over keyboard symbols using Space, Arrow Up, click or tap. |
+| Hidden arcade | Two monochrome jumps reveal a larger platformer, a top-down lantern arena and a perspective finale with a secret music door. Three hearts, optional synthesized music and no story captions. |
 
 ### The photography projector
 

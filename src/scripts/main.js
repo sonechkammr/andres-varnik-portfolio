@@ -118,24 +118,3 @@ const copyBtn=$('#copy-email');let copyTimer;
 copyBtn.addEventListener('click',async()=>{const email='viva.la.nick13@gmail.com';try{await navigator.clipboard.writeText(email);copyBtn.classList.remove('copied');void copyBtn.offsetWidth;copyBtn.classList.add('copied');$('#copy-status').textContent='Email copied.';clearTimeout(copyTimer);copyTimer=setTimeout(()=>copyBtn.classList.remove('copied'),2200)}catch{$('#copy-status').textContent='Copy failed. The address is '+email}});
 $('#year').textContent=new Date().getFullYear();
 
-/* ---------- Runner: finite, local, input scoped to the focused track ---------- */
-const track=$('#runner-track'),runner=$('#runner-character'),obstacleHost=$('#runner-obstacles'),score=$('#runner-score'),prompt=$('#runner-prompt'),status=$('#runner-status'),pauseButton=$('#runner-pause'),restartButton=$('#runner-restart'),ground=$('.runner-ground');
-let gameState='ready',obstacles=[],elapsed=0,cleared=0,nextSpawn=0,y=0,vy=0,raf=0,lastTime=0,squash=0,groundX=0;const symbols=['@','!','#','?','&','%','+','=','{','}',';','*'],gravity=1700,jumpSpeed=660;
-const say=m=>status.textContent=m,setPrompt=m=>{prompt.textContent=m;prompt.style.opacity=m?1:0};
-function updateScore(bump){score.textContent=cleared+' / 12';if(bump&&!reduced.matches){score.classList.remove('bump');void score.offsetWidth;score.classList.add('bump')}}
-function resetGame(){cancelAnimationFrame(raf);obstacleHost.replaceChildren();obstacles=[];elapsed=0;cleared=0;nextSpawn=1.1;y=0;vy=0;lastTime=0;squash=0;runner.style.transform='none';$('#runner-win').hidden=true;gameState='ready';pauseButton.disabled=true;pauseButton.textContent='Pause';setPrompt('Press Space or tap to start');updateScore();say('Takes about 20 seconds.')}
-function startGame(){gameState='running';pauseButton.disabled=false;pauseButton.textContent='Pause';setPrompt('');say('Jump the symbols. Escape pauses.');lastTime=performance.now();raf=requestAnimationFrame(tick)}
-function pauseGame(){if(gameState!=='running')return;gameState='paused';cancelAnimationFrame(raf);pauseButton.textContent='Resume';setPrompt('Paused. Space or tap to carry on.');say('Paused.')}
-function resumeGame(){if(gameState!=='paused')return;gameState='running';setPrompt('');pauseButton.textContent='Pause';lastTime=performance.now();raf=requestAnimationFrame(tick)}
-function jump(){if(gameState==='ready'){startGame();vy=jumpSpeed;return}if(gameState==='paused'){resumeGame();return}if(gameState!=='running')return;if(y<1){vy=jumpSpeed;squash=-.6}}
-function finishGame(won){gameState=won?'won':'lost';cancelAnimationFrame(raf);pauseButton.disabled=true;setPrompt(won?'All 12 cleared. Nice.':'Ouch. Restart to try again.');say(won?'Finished. There’s a note below.':'You hit a symbol.');if(won)$('#runner-win').hidden=false;else if(!reduced.matches){track.classList.remove('hit');void track.offsetWidth;track.classList.add('hit')}}
-function spawnObstacle(){const o=document.createElement('span');o.className='runner-obstacle';o.textContent=symbols[obstacles.length];obstacleHost.append(o);obstacles.push({el:o,x:track.clientWidth+30,passed:false})}
-function tick(now){if(gameState!=='running')return;const dt=Math.min((now-lastTime)/1000,.025);lastTime=now;elapsed+=dt;const wasAir=y>0;vy-=gravity*dt;y=Math.max(0,y+vy*dt);if(y===0&&vy<0){vy=0;if(wasAir)squash=1}squash*=Math.exp(-dt*14);const sx=1+squash*.08,sy=1-squash*.1;runner.style.transform=`translateY(${-y}px) rotate(${y>0?-6:Math.sin(elapsed*18)*2}deg) scale(${sx},${sy})`;const speed=track.clientWidth<500?165:235;groundX=(groundX-speed*dt)%36;ground.style.setProperty('--ground',groundX+'px');if(elapsed>=nextSpawn&&obstacles.length<12){spawnObstacle();nextSpawn=elapsed+1.6}
-  for(const o of obstacles){o.x-=speed*dt;o.el.style.transform=`translateX(${o.x}px)`;if(!o.passed&&o.x+25<53){o.passed=true;cleared++;updateScore(true)}if(o.x<112&&o.x+25>62&&y<34){finishGame(false);return}}if(cleared===12){finishGame(true);return}raf=requestAnimationFrame(tick)}
-track.addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType==='mouse')return;e.preventDefault();track.focus({preventScroll:true});jump()});
-track.addEventListener('keydown',e=>{if(['Space','ArrowUp'].includes(e.code)){e.preventDefault();if(!e.repeat)jump()}else if(e.code==='Escape'){e.preventDefault();pauseGame()}});
-restartButton.addEventListener('click',()=>{resetGame();track.focus({preventScroll:true});startGame()});pauseButton.addEventListener('click',()=>gameState==='paused'?resumeGame():pauseGame());
-track.addEventListener('blur',e=>{if(e.relatedTarget!==pauseButton&&gameState==='running')pauseGame()});document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseGame()});
-new IntersectionObserver(([e])=>{if(!e.isIntersecting)pauseGame()},{threshold:.2}).observe(track);resetGame();
-
-

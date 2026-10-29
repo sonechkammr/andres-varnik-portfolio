@@ -8,11 +8,12 @@ The deployed artifact is `index.html`. Its pictures, fonts, PDF CV and Practice 
 
 ## Source layout and build
 
-`src/index.template.html` preserves the original document order. Five CSS fragments retain the original cascade, including the final compatibility rules. Three JavaScript fragments retain their execution order:
+`src/index.template.html` preserves the original document order. Five CSS fragments retain the original cascade, including the final compatibility rules. Four JavaScript fragments retain their execution order:
 
 1. `main.js`: the case journey, explanation demos, project link setup and runner.
 2. `controls.js`: theme switching, persisted interface preferences and translation.
 3. `gallery.js`: the photography deck, input handling, viewer and optional sound.
+4. `easter-egg.js`: the multi-scene hidden arcade. See [ARCADE.md](ARCADE.md).
 
 The build recognizes five marker forms:
 
