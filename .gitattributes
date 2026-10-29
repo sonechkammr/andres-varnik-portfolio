@@ -11,3 +11,5 @@
 *.pdf binary
 *.ttf binary
 *.woff2 binary
+index.html linguist-generated=true
+assets/projects/practice-wheel.html linguist-vendored=true

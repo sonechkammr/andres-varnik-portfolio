@@ -4,9 +4,9 @@ A personal portfolio about how I investigate technical problems, explain them cl
 
 The site combines a scroll-driven SQL and API investigation with warm paper colours, pixel-art illustrations, small physics experiments and my own photography. It is built with HTML, CSS and vanilla JavaScript. The finished portfolio is a single file that can be opened offline or attached to an application.
 
-**[Open the portfolio](https://andres-varnik-curious-mind.viva-la-nick13.chatgpt.site/)** · [Development story](docs/DEVELOPMENT.md) · [Technical notes](docs/ARCHITECTURE.md) · [Validation](docs/VALIDATION.md)
+**[Open the portfolio](https://sonechkammr.github.io/andres-varnik-portfolio/)** · [Development story](docs/DEVELOPMENT.md) · [Technical notes](docs/ARCHITECTURE.md) · [Validation](docs/VALIDATION.md)
 
-> The hosted copy may require access through its current hosting account. Download this repository and open `index.html` to view the complete portfolio locally. External destinations such as Instagram, Telegram and the Android release still need an internet connection.
+The live portfolio is publicly available through GitHub Pages. You can also download this repository and open `index.html` offline. External destinations such as Instagram, Telegram and the Android release still need an internet connection.
 
 ## What you can explore
 
@@ -31,7 +31,7 @@ The gallery also supports previous/next buttons, arrow keys, an optional slidesh
 
 ## Run it
 
-**No setup:** download the repository and open `index.html` in a current browser. Fonts, pictures, the English CV and the Practice Wheel are embedded in that file.
+**No setup:** download the repository and open `index.html` in a current browser. Fonts, pictures, the English CV and the Practice Wheel are embedded in that file. The [release notes](docs/RELEASE_NOTES.md) describe the first packaged version.
 
 **Edit and rebuild:** install Node.js 20 or newer, then run these commands from the repository root. There are no npm dependencies to install.
 
