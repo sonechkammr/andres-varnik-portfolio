@@ -69,3 +69,7 @@ English documentation covers the decisions, implementation, controls and known l
 - Presenting technical reasoning with explicit fictional data.
 - Combining professional experience and personal work in one coherent site.
 - Using AI-assisted development while retaining responsibility for direction, factual content and review.
+
+## 9. Merge the supplied photo-book revision
+
+The next supplied HTML revision replaced the projector with a physical photo-book metaphor, made the SQL/API investigation more explicit and improved small text. These changes were merged into the maintained source, while retaining the complete v2 arcade rather than reverting to the supplied file's old runner. Additional queueing prevents overlapping page turns, and layout changes preserve the current photograph.

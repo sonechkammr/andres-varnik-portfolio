@@ -18,14 +18,14 @@ The live portfolio is publicly available through GitHub Pages. You can also down
 | Three visual explanations | Change wave interference, balance a lever and explore how light bends in water. These are simplified teaching illustrations. |
 | Experience and skills | Technical support, SQL and API diagnostics, logs, reproductions, developer escalations and mentoring. |
 | Personal projects | Mind Garden, a Buddhist-inspired Android app for meditation, journaling and daily check-ins; a Practice Wheel; singing in three bands; and my writing channel. |
-| Photography | Fifteen of my photographs in a shuffled slide-projector deck. Cards turn edge-on, retreat into depth and bring the next frame forward. |
+| Photography | Fifteen of my photographs in a shuffled photo book. Pages turn around a spine, with a two-page spread on wide screens and one page on phones. |
 | Hidden arcade | Two monochrome jumps reveal a larger platformer, a top-down lantern arena and a perspective finale with a secret music door. Three hearts, optional synthesized music and no story captions. |
 
-### The photography projector
+### The photography book
 
-An ordinary transition takes **1.4 seconds**. Acceleration, depth, shading and a very small settling movement give the frames a mechanical feel. A firm swipe advances several photographs, with the last frame slowing to a stop. Sound is optional and starts off; it is synthesized locally with the Web Audio API.
+All fifteen photographs appear in a shuffled photo book. Click a page, use the arrow buttons or arrow keys, or swipe horizontally to turn the leaves. The last page links to Instagram. The book preserves the current photograph when switching between desktop spreads and the single-page phone layout. Rapid input is queued so animations do not collide.
 
-The gallery also supports previous/next buttons, arrow keys, an optional slideshow and a larger photo viewer. It shuffles once on each page load, then keeps that order while you browse.
+The revised sandbox investigation also makes its evidence explicit: find the warehouse used by the customer's other orders, PATCH the missing mapping, then retry dispatch and receive 202 Accepted.
 
 <img src="docs/screenshots/photography-mobile.png" alt="The photography projector in the warm paper theme on a narrow screen" width="360">
 

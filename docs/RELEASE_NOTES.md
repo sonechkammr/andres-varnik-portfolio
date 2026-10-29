@@ -1,3 +1,14 @@
+# Portfolio v2.1.0 — Photo Book & Refined Investigation
+
+- Merged the supplied page-turning photo book with all fifteen photographs, responsive spreads and the final Instagram page.
+- Added serialized page turns, layout-position preservation and visible-face accessibility handling.
+- Imported the clearer warehouse lookup and POST / PATCH / POST sandbox sequence.
+- Imported readability improvements, theme tooltips and a mobile language switch inside the menu.
+- Preserved the full evolving arcade source and stylesheet from v2.0.0 unchanged.
+- Updated offline HTML, source documentation and checks.
+
+---
+
 # Portfolio v2.0.0 — Hidden Arcade
 
 - Replaced the small runner with a linear, multi-scene desktop Easter egg.

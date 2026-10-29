@@ -1,78 +1,60 @@
+
 (()=>{
 'use strict';
-const section=document.querySelector('#photography'),stage=section.querySelector('#pg-stage'),host=section.querySelector('#pg-cards'),motion=matchMedia('(prefers-reduced-motion:reduce)');
-let cards=[...host.children],index=0,animation=null,raf=0,queue=[],playing=false,autoTimer=0,sound=false,audio=null,suppressClickUntil=0,drag=null;
-const count=cards.length,mod=n=>(n%count+count)%count,clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),lerp=(a,b,t)=>a+(b-a)*t;
-const text={en:{title:'Through my lens.',kicker:'A different way of noticing',intro:'I’m also a photographer. Portraits, street details and quiet corners — photographed by me.',hint:'Click the front slide to enlarge. Swipe firmly to turn several frames.',play:'Play slides',pause:'Pause slides',soundOff:'Sound off',soundOn:'Sound on',previous:'Previous photograph',next:'Next photograph',close:'Close ×',enlarge:'Enlarge photograph',bring:'Bring photograph to front',gallery:'Photography slide projector',nav:'Photography',frame:'Photograph'},et:{title:'Läbi minu objektiivi.',kicker:'Teine viis märgata',intro:'Tegelen ka fotograafiaga. Portreed, tänavadetailid ja vaiksed nurgad — minu enda fotod.',hint:'Suurendamiseks klõpsa esimesel slaidil. Tugev viibe kerib mitu kaadrit.',play:'Käivita slaidid',pause:'Peata slaidid',soundOff:'Heli väljas',soundOn:'Heli sees',previous:'Eelmine foto',next:'Järgmine foto',close:'Sulge ×',enlarge:'Suurenda fotot',bring:'Too foto esiplaanile',gallery:'Fotode slaidiprojektor',nav:'Fotograafia',frame:'Foto'}};
-const lang=()=>document.documentElement.lang==='et'?'et':'en',words=()=>text[lang()],caption=i=>cards[mod(i)].dataset[lang()==='et'?'captionEt':'captionEn'];
-// Shuffle once per page visit. Never reorder during navigation or language changes.
-for(let i=count-1;i>0;i--){let random;if(globalThis.crypto?.getRandomValues){const a=new Uint32Array(1);crypto.getRandomValues(a);random=a[0]/4294967296}else random=Math.random();const j=Math.floor(random*(i+1));[cards[i],cards[j]]=[cards[j],cards[i]]}cards.forEach(card=>host.append(card));
-// motion-model:start
-// CSS rotateY: positive brings the left edge forward. A left-moving card
-// therefore progresses from positive rotation, through zero, to negative.
-function projectorEase(t) {
-  t = Math.max(0, Math.min(1, t));
-  return t * t * t * (10 + t * (-15 + 6 * t));
-}
-function projectorPose(distance, radius, perspective = 1250) {
-  const d = distance, a = Math.abs(d);
-  const fade = Math.max(0, Math.min(1, (a - 1.15) / 1.05));
-  const x = radius * d * Math.sqrt(1.35) / Math.sqrt(1 + .35 * d * d);
-  const z = 88 - 313 * d * d;
-  const cameraAngle = Math.atan2(x, perspective - z) * 180 / Math.PI;
-  return {
-    x,
-    y: 25 * d * d,
-    z,
-    r: Math.max(-130, Math.min(130, 82 * d - cameraAngle)),
-    o: 1 - projectorEase(fade)
-  };
-}
-// motion-model:end
-let radius=430,perspective=1250;
-function measureGallery(){radius=Math.min(innerWidth<720?180:430,stage.clientWidth*.46);perspective=innerWidth<720?900:1250;if(!animation)rest()}
-function slot(i,center=index){let d=mod(i-center);if(d>count/2)d-=count;return d}
-function pose(i,center=index){return projectorPose(slot(i,center),radius,perspective)}
-function draw(i,p){const card=cards[mod(i)];card.style.transform=`translate3d(${p.x.toFixed(3)}px,${p.y.toFixed(3)}px,${p.z.toFixed(3)}px) rotateY(${p.r.toFixed(3)}deg)`;card.style.setProperty('--pg-alpha',p.o.toFixed(3));card.style.visibility=p.o>.002?'visible':'hidden';card.style.setProperty('--pg-shade',String(clamp(Math.abs(p.r)/100)*.28));card.style.pointerEvents=p.o>.3?'auto':'none'}
-function updateLabels(){const w=words();section.querySelector('#pg-title').textContent=w.title;section.querySelector('#pg-kicker').textContent=w.kicker;section.querySelector('#pg-intro').textContent=w.intro;section.querySelector('#pg-hint').textContent=w.hint;section.querySelector('#pg-play').textContent=playing?w.pause:w.play;section.querySelector('#pg-play').setAttribute('aria-pressed',String(playing));section.querySelector('#pg-sound').textContent=sound?w.soundOn:w.soundOff;section.querySelector('#pg-sound').setAttribute('aria-pressed',String(sound));section.querySelector('#pg-close').textContent=w.close;stage.setAttribute('aria-label',w.gallery);['#pg-prev','#pg-view-prev'].forEach(s=>section.querySelector(s).setAttribute('aria-label',w.previous));['#pg-next','#pg-view-next'].forEach(s=>section.querySelector(s).setAttribute('aria-label',w.next));const nav=document.querySelector('#photo-nav');if(nav)nav.textContent=w.nav;
-cards.forEach((c,i)=>{c.querySelector('.pg-card-title').textContent=caption(i);c.setAttribute('aria-label',caption(i)+' · '+(i===index?w.enlarge:w.bring));c.setAttribute('aria-current',String(i===index));c.tabIndex=i===index?0:-1;c.querySelector('svg').setAttribute('aria-label',caption(i)+' · Andres Värnik')});section.querySelector('#pg-counter').textContent=String(index+1).padStart(2,'0')+' / '+String(count).padStart(2,'0');section.querySelector('#pg-caption').textContent=caption(index);if(viewer.open)showLarge()}
-function rest(){cards.forEach((_,i)=>{const p=pose(i);if(motion.matches&&i!==index)p.o=0;draw(i,p)});stage.dataset.pgIndex=String(index);stage.dataset.pgProgress='1';stage.setAttribute('aria-busy','false')}
-function audioReady(){if(!audio){const A=window.AudioContext||window.webkitAudioContext;if(A)audio=new A()}if(audio?.state==='suspended')audio.resume().catch(()=>{})}
-function clickSound(){if(!sound||!audio||audio.state!=='running')return;const t=audio.currentTime;const buffer=audio.createBuffer(1,Math.floor(audio.sampleRate*.028),audio.sampleRate),data=buffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*(1-i/data.length);const noise=audio.createBufferSource(),filter=audio.createBiquadFilter(),gain=audio.createGain();noise.buffer=buffer;filter.type='highpass';filter.frequency.value=1600;gain.gain.setValueAtTime(.025,t);gain.gain.exponentialRampToValueAtTime(.0001,t+.036);noise.connect(filter).connect(gain).connect(audio.destination);noise.start(t);noise.stop(t+.04);const ring=audio.createOscillator(),ringGain=audio.createGain();ring.type='sine';ring.frequency.setValueAtTime(2200,t);ring.frequency.exponentialRampToValueAtTime(1550,t+.055);ringGain.gain.setValueAtTime(.007,t);ringGain.gain.exponentialRampToValueAtTime(.0001,t+.09);ring.connect(ringGain).connect(audio.destination);ring.start(t);ring.stop(t+.1)}
-function frame(t){
-  if(!animation)return;
-  const a=animation,p=clamp((t-a.start)/a.duration),e=projectorEase(p);
-  const incoming=mod(a.from+a.dir);
-  stage.dataset.pgProgress=p.toFixed(3);
-  // One shared position parameter keeps every card on the same continuous rail.
-  // No intermediate stops, reversal of angle, depth reset or changing z-index.
-  cards.forEach((_,i)=>{
-    const q=slot(i,a.from)-a.dir*e;
-    const pose=projectorPose(q,a.radius,a.perspective);
-    if(i===incoming&&!queue.length&&p>.84){
-      const u=(p-.84)/.16;
-      pose.r+=a.dir*.7*Math.sin(2*Math.PI*u)*Math.pow(Math.sin(Math.PI*u),2)*Math.pow(1-u,2);
-    }
-    draw(i,pose);
-  });
-  if(!a.clicked&&p>=.5){a.clicked=true;clickSound()}
-  if(p>=1){complete();return}
-  raf=requestAnimationFrame(frame);
-}
-function beginNext(){clearTimeout(autoTimer);if(animation||!queue.length)return;const step=queue.shift();if(motion.matches){index=mod(index+step.dir);rest();updateLabels();if(queue.length)beginNext();else scheduleAuto();return}animation={from:index,dir:step.dir,duration:step.duration,radius,perspective,start:performance.now(),clicked:false};stage.setAttribute('aria-busy','true');stage.dataset.pgDirection=String(step.dir);raf=requestAnimationFrame(frame)}
-function complete(){if(!animation)return;index=mod(animation.from+animation.dir);animation=null;cancelAnimationFrame(raf);rest();updateLabels();section.querySelector('#pg-status').textContent=words().frame+' '+(index+1)+' / '+count;if(queue.length)beginNext();else scheduleAuto()}
-function requestTurn(direction,steps=1,inertia=false){const d=direction<0?-1:1,n=Math.round(clamp(steps,1,5));for(let i=0;i<n&&queue.length<10;i++){const duration=inertia&&n>1?lerp(740,1400,i/(n-1)):1400;queue.push({dir:d,duration})}beginNext()}
-function scheduleAuto(){clearTimeout(autoTimer);if(playing&&!viewer.open&&!document.hidden&&!motion.matches)autoTimer=setTimeout(()=>requestTurn(1),4400)}
-function setPlaying(value){playing=Boolean(value)&&!motion.matches;clearTimeout(autoTimer);updateLabels();if(playing&&!animation)scheduleAuto()}
-function manualTurn(d,n=1,inertia=false){setPlaying(false);requestTurn(d,n,inertia)}
-const viewer=section.querySelector('#pg-viewer');
-function showLarge(){const large=section.querySelector('#pg-large');large.replaceChildren(cards[index].querySelector('svg').cloneNode(true));section.querySelector('#pg-viewer-caption').textContent=caption(index);section.querySelector('#pg-view-count').textContent=String(index+1).padStart(2,'0')+' / '+count}
-function viewerTurn(d){index=mod(index+d);rest();updateLabels()}
-function enlarge(){if(animation||Date.now()<suppressClickUntil)return;setPlaying(false);showLarge();viewer.showModal()}
-cards.forEach((card,i)=>{card.addEventListener('click',()=>{if(Date.now()<suppressClickUntil)return;if(i===index)enlarge();else manualTurn(slot(i)>0?1:-1)});card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();card.click()}})});
-section.querySelector('#pg-prev').addEventListener('click',()=>manualTurn(-1));section.querySelector('#pg-next').addEventListener('click',()=>manualTurn(1));section.querySelector('#pg-play').addEventListener('click',()=>setPlaying(!playing));section.querySelector('#pg-sound').addEventListener('click',()=>{sound=!sound;if(sound){audioReady();if(audio?.state==='running')clickSound()}updateLabels()});section.querySelector('#pg-close').addEventListener('click',()=>viewer.close());section.querySelector('#pg-view-prev').addEventListener('click',()=>viewerTurn(-1));section.querySelector('#pg-view-next').addEventListener('click',()=>viewerTurn(1));viewer.addEventListener('click',e=>{if(e.target===viewer)viewer.close()});
-section.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key)||e.target.closest('input,textarea,select'))return;e.preventDefault();const dir=e.key==='ArrowRight'?1:-1;if(viewer.open)viewerTurn(dir);else manualTurn(dir)});
-stage.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;drag={x:e.clientX,y:e.clientY,t:performance.now(),id:e.pointerId,captured:false}});stage.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId||drag.captured)return;const dx=Math.abs(e.clientX-drag.x),dy=Math.abs(e.clientY-drag.y);if(dx>12&&dx>dy*1.15){stage.setPointerCapture?.(e.pointerId);drag.captured=true}});stage.addEventListener('pointerup',e=>{if(!drag||drag.id!==e.pointerId)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y,dt=Math.max(40,performance.now()-drag.t);drag=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.15){suppressClickUntil=Date.now()+500;const speed=Math.abs(dx)/dt,n=Math.round(clamp(Math.abs(dx)/150+speed*1.3,1,5));manualTurn(dx<0?1:-1,n,true)}});stage.addEventListener('pointercancel',()=>drag=null);
-document.addEventListener('visibilitychange',()=>{if(document.hidden){setPlaying(false);queue=[];if(animation)complete()}});new IntersectionObserver(([entry])=>{if(!entry.isIntersecting)setPlaying(false)},{threshold:.1}).observe(section);new MutationObserver(()=>updateLabels()).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});motion.addEventListener('change',()=>{setPlaying(false);queue=[];if(animation)complete();rest()});addEventListener('resize',measureGallery);
-measureGallery();updateLabels();
+const section=document.querySelector('#photography'),book=section.querySelector('#pb-book'),leavesHost=section.querySelector('#pb-leaves'),prevBtn=section.querySelector('#pb-prev'),nextBtn=section.querySelector('#pb-next'),count=section.querySelector('#pb-count'),status=section.querySelector('#pb-status');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)'),small=matchMedia('(max-width:720px)');
+const text={en:{title:'Through my lens.',kicker:'A different way of noticing',intro:'I’m also a photographer: portraits, street details and quiet corners.',photos:'Photographs',turn:'Turn the page →',end:'That’s the book for now. There are more on Instagram.',hint:'Click a page or use the arrows to turn it.',prev:'Previous page',next:'Next page',book:'Photo book',of:'of',endLabel:'End',nav:'Photography',shown:'Showing'},
+et:{title:'Läbi minu objektiivi.',kicker:'Teine viis märgata',intro:'Tegelen ka fotograafiaga: portreed, tänavadetailid ja vaiksed nurgad.',photos:'Fotod',turn:'Keera lehte →',end:'Raamat on praegu siin otsas. Rohkem fotosid on Instagramis.',hint:'Lehe keeramiseks klõpsa lehel või kasuta nooli.',prev:'Eelmine leht',next:'Järgmine leht',book:'Fotoraamat',of:'/',endLabel:'Lõpp',nav:'Fotograafia',shown:'Näidatakse'}};
+const lang=()=>document.documentElement.lang==='et'?'et':'en',w=()=>text[lang()];
+// Photos are shuffled once per visit, as before; the order then stays put while reading.
+const photos=[...section.querySelector('#pb-photos').content.children];
+for(let i=photos.length-1;i>0;i--){const a=new Uint32Array(1);crypto.getRandomValues(a);const j=Math.floor(a[0]/4294967296*(i+1));[photos[i],photos[j]]=[photos[j],photos[i]]}
+const N=photos.length,pad=n=>String(n).padStart(2,'0');
+function page(side,kind,i){const p=document.createElement('div');p.className=`pb-page pb-${side==='back'?'left pb-back':'right pb-front'}`;
+  if(kind==='photo'){const f=photos[i];p.dataset.photo=i;p.innerHTML=`<div class="pb-photo"></div><p class="pb-cap"><b></b><span>${pad(i+1)}</span></p>`;const svg=f.querySelector('svg').cloneNode(true),[,,vw,vh]=svg.getAttribute('viewBox').split(/\s+/).map(Number);svg.style.setProperty('--ar',vw/vh);p.querySelector('.pb-photo').append(svg)}
+  else if(kind==='end'){p.classList.add('pb-end');p.innerHTML=`<p class="pb-small">${'@undress.v'}</p><p class="pb-end-text"></p><a href="https://www.instagram.com/undress.v/" target="_blank" rel="noopener noreferrer" tabindex="-1">Instagram ↗</a>`}
+  else p.classList.add('pb-blank');
+  return p}
+let leaves=[],turned=0,single=null,flipSeq=0,busy=false,pending=0,flipTimer=0;
+function finishFlip(){clearTimeout(flipTimer);busy=false;leaves.forEach((leaf,j)=>{leaf.classList.remove("flipping");rest(leaf,j)});if(pending){const dir=Math.sign(pending);pending-=dir;flip(dir)}}
+// Wide: the inside cover is the title page, then each leaf carries a photo on the front and the next on its back.
+// Phone: each leaf carries one photo, its back is plain paper, and the last leaf is the end page.
+function build(){const photo=leaves.length?visible()[0]:0;clearTimeout(flipTimer);busy=false;pending=0;single=small.matches;turned=photo==null?0:single?photo:Math.floor((photo+1)/2);book.classList.toggle('single',single);leavesHost.replaceChildren();leaves=[];
+  const specs=[];if(single){for(let i=0;i<N;i++)specs.push([['photo',i],['blank']]);specs.push([['end'],['blank']])}
+  else{for(let i=0;i<N;i+=2)specs.push([['photo',i],i+1<N?['photo',i+1]:['end']]);if(N%2===0)specs.push([['end'],['blank']])}
+  specs.forEach(([f,b],j)=>{const leaf=document.createElement('div');leaf.className='pb-leaf';leaf.append(page('front',...f),page('back',...b));leaf.addEventListener('transitionend',e=>{if(e.target!==leaf||e.propertyName!=='transform')return;finishFlip()});leavesHost.append(leaf);leaves.push(leaf)});
+  section.querySelector('.pb-title').hidden=single;turned=Math.min(turned,max());leaves.forEach((l,j)=>{l.classList.toggle('turned',j<turned);rest(l,j)});labels()}
+const max=()=>single?leaves.length-1:leaves.length;
+function rest(leaf,j){leaf.style.zIndex=leaf.classList.contains('turned')?j+1:leaves.length-j}
+function flip(dir){if(busy){pending=Math.max(-6,Math.min(6,pending+dir));return}const to=turned+dir;if(to<0||to>max())return;const j=dir>0?turned:to,leaf=leaves[j];turned=to;
+  if(!reduced.matches){busy=true;flipTimer=setTimeout(finishFlip,1100);leaf.classList.remove('flipping');void leaf.offsetWidth;leaf.classList.add('flipping');leaf.style.zIndex=leaves.length+10+(++flipSeq)}
+  leaf.classList.toggle('turned',dir>0);if(reduced.matches)rest(leaf,j);labels(true)}
+// Which photos are visible right now, for the counter and screen readers.
+function visible(){if(single){const f=leaves[turned]?.querySelector('.pb-front');return f?.dataset.photo!=null?[+f.dataset.photo]:[]}
+  const out=[];const left=turned>0?leaves[turned-1].querySelector('.pb-back'):null,right=leaves[turned]?.querySelector('.pb-front');[left,right].forEach(p=>{if(p?.dataset.photo!=null)out.push(+p.dataset.photo)});return out}
+function labels(announce=false){const t=w(),v=visible();
+  section.querySelector('#pg-title').textContent=t.title;section.querySelector('#pg-kicker').textContent=t.kicker;section.querySelector('#pg-intro').textContent=t.intro;
+  const nav=document.querySelector('#photo-nav');if(nav)nav.textContent=t.nav;
+  section.querySelector('.pb-title .pb-small').textContent=t.photos;section.querySelector('.pb-title .pb-turn').textContent=t.turn;section.querySelector('#pb-hint').textContent=t.hint;
+  book.setAttribute('aria-label',t.book);book.dataset.page=String(turned);prevBtn.setAttribute('aria-label',t.prev);nextBtn.setAttribute('aria-label',t.next);
+  section.querySelectorAll('.pb-end-text').forEach(p=>p.textContent=t.end);
+  leaves.forEach(l=>l.querySelectorAll('[data-photo]').forEach(p=>{const f=photos[+p.dataset.photo];p.querySelector('b').textContent=f.dataset[lang()==='et'?'captionEt':'captionEn']}));
+  const label=v.length?v.map(i=>pad(i+1)).join('–')+' / '+N:t.endLabel;count.textContent=label;
+  prevBtn.disabled=turned===0;nextBtn.disabled=turned===max();
+  // Only the open pages are exposed; the rest of the stack is hidden from assistive tech.
+  leaves.forEach((l,j)=>{const open=single?j===turned:(j===turned||j===turned-1);l.setAttribute('aria-hidden',String(!open));l.querySelectorAll('.pb-front,.pb-back').forEach(face=>{const shown=single?j===turned&&face.classList.contains('pb-front'):(j===turned&&face.classList.contains('pb-front'))||(j===turned-1&&face.classList.contains('pb-back'));face.setAttribute('aria-hidden',String(!shown));face.querySelectorAll('a').forEach(a=>a.tabIndex=shown?0:-1)})});
+  if(announce)status.textContent=v.length?`${t.shown}: ${v.map(i=>photos[i].dataset[lang()==='et'?'captionEt':'captionEn']).join(' · ')}. ${label}`:t.endLabel}
+prevBtn.addEventListener('click',()=>flip(-1));nextBtn.addEventListener('click',()=>flip(1));
+// Click the right half to go forward, the left half to go back; a horizontal swipe does the same.
+let down=null;
+book.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;down={x:e.clientX,y:e.clientY}});
+book.addEventListener('pointerup',e=>{if(!down||e.target.closest('a'))return;const dx=e.clientX-down.x,dy=e.clientY-down.y;down=null;
+  if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy))flip(dx<0?1:-1);
+  else if(Math.abs(dx)<8&&Math.abs(dy)<8){const r=book.getBoundingClientRect();flip(single?(e.clientX<r.left+r.width*.3?-1:1):(e.clientX<r.left+r.width/2?-1:1))}});
+book.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();flip(1)}else if(e.key==='ArrowLeft'){e.preventDefault();flip(-1)}});
+book.addEventListener('pointercancel',()=>down=null);
+reduced.addEventListener('change',()=>{pending=0;finishFlip()});
+small.addEventListener('change',build);
+new MutationObserver(()=>labels()).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+build();
 })();

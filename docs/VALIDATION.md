@@ -73,3 +73,7 @@ These are ideas, not completed features or commitments:
 - Offer a lighter web-only build with separately cached photographs.
 - Replace screenshot sources with original photo exports when available.
 - Move text translation to explicit message keys if the site grows substantially.
+
+## v2.1 photo-book merge review
+
+The supplied photo book replaced the older projector. Browser checks traversed all fifteen photos to the end page, confirmed the disabled forward button, queued three rapid backward turns, switched from a spread to one page while retaining the current photo, changed to Estonian through the mobile menu and changed visual themes. No heading overflow or console errors were observed at the inspected phone width. The revised API panel showed its POST/PATCH/POST request and response sequence. The arcade source and stylesheet were verified unchanged against v2.0.0; its engine tests continue to pass. Previous projector-specific observations above describe the earlier implementation, not the current book.

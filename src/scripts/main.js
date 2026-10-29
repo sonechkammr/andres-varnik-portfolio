@@ -1,4 +1,5 @@
 
+
 // Practice Wheel ships inside this file as a blob so the link works offline.
 const wheelBytes=Uint8Array.from(atob("{{base64:assets/projects/practice-wheel.html}}"),c=>c.charCodeAt(0));
 document.querySelector('#wheel-link').href=URL.createObjectURL(new Blob([wheelBytes],{type:'text/html;charset=utf-8'}));
@@ -31,35 +32,37 @@ $$('.reveal').forEach(el=>revealIO.observe(el));
 
 /* ---------- Scroll story ---------- */
 const journey=$('.journey'),stage=$('.journey-stage'),traveller=$('#traveller'),api=$('.api-paper'),token=$('.flying-token');
-const el={table:$('.traveller-table'),rowOne:$('.row-one'),rowThree:$('.row-three'),query:$('.traveller-query'),qlines:$$('.ql'),success:$('.traveller-success'),seal:$('.seal path'),label:$('#traveller-label'),opening:$('.opening'),actions:$('.opening .actions'),tokenValue:$('#token-value'),payload:$('#payload-value'),proof:$('.mapping-proof'),response:$('.api-response'),status:$('#new-api-status'),message:$('#new-api-message'),stamp:$('.case-stamp'),guide:$('.scene-guide'),live:$('.journey-live'),chapters:$$('[data-chapter]')};
-const copies=[['.copy-data',.07,.14,.23,.30],['.copy-query',.26,.32,.41,.48],['.copy-api',.46,.52,.62,.69],['.copy-fix',.66,.72,.82,.89]].map(([s,...w])=>[$(s),...w]);
+const el={table:$('.traveller-table'),rowOne:$('.row-one'),rowThree:$('.row-three'),query:$('.traveller-query'),qlines:$$('.ql'),q1:$('.q1'),q2:$('.q2'),q2lines:$$('.ql2'),q2out:$('.q2-out'),reqs:$$('.req'),codes:$$('.req .rs'),patchBody:$('.r2 .req-body'),success:$('.traveller-success'),seal:$('.seal path'),label:$('#traveller-label'),opening:$('.opening'),actions:$('.opening .actions'),tokenValue:$('#token-value'),stamp:$('.case-stamp'),guide:$('.scene-guide'),live:$('.journey-live'),chapters:$$('[data-chapter]')};
+const copies=[['.copy-data',.07,.14,.23,.30],['.copy-query',.26,.32,.41,.48],['.copy-api',.46,.52,.62,.69],['.copy-fix',.66,.72,.84,.90]].map(([s,...w])=>[$(s),...w]);
 const stops=[0,.19,.36,.57,.76,.95];
-const liveText=['Start. A customer reports a stuck order.','Data. Order 1042 has no warehouse.','SQL. The join returns NULL for the warehouse.','API. The dispatch call fails with 400, missing warehouse_id.','Fix. Mapped to warehouse 7 and retried.','Verified. The retry returned 200 OK.'];
+const liveText=['Start. A customer reports a stuck order.','Data. Order 1042 has no warehouse.','SQL. The join returns NULL for the warehouse.','API. POST dispatch fails with 400, missing warehouse_id.','Fix. Every other Lumen order ships from Tallinn, warehouse 7. PATCH /orders/1042 sets warehouse_id to 7, 200 OK.','Verified. Sending the dispatch again returns 202 Accepted.'];
 // [progress, x, y, width (fractions of the stage), height px, rotation deg]
-const keyframesDesktop=[[0,.14,.66,.72,215,0],[.13,.30,.50,.62,215,-2],[.26,.39,.38,.54,250,2],[.40,.32,.40,.60,250,-1],[.52,.07,.43,.43,250,-1.5],[.65,.05,.42,.43,250,-1],[.78,.12,.42,.40,250,.5],[.9,.28,.30,.46,320,0],[1,.28,.30,.46,320,0]];
-const keyframesPhone=[[0,.05,.72,.90,150,0],[.13,.12,.52,.82,150,-2],[.26,.05,.35,.90,190,1.5],[.40,.05,.35,.90,190,-1],[.52,.04,.355,.90,180,-1],[.65,.04,.355,.90,180,-.5],[.78,.04,.355,.90,180,0],[.9,.07,.32,.86,290,0],[1,.07,.32,.86,290,0]];
+const keyframesDesktop=[[0,.14,.66,.72,215,0],[.13,.30,.50,.62,215,-2],[.26,.39,.38,.54,250,2],[.40,.32,.44,.60,250,-1],[.52,.07,.47,.43,250,-1.5],[.65,.05,.46,.43,290,-1],[.82,.12,.46,.40,290,.5],[.93,.28,.30,.46,320,0],[1,.28,.30,.46,320,0]];
+const keyframesPhone=[[0,.05,.72,.90,150,0],[.13,.12,.52,.82,150,-2],[.26,.05,.35,.90,190,1.5],[.40,.05,.35,.90,190,-1],[.52,.04,.355,.90,180,-1],[.65,.04,.34,.90,212,-.5],[.82,.04,.34,.90,212,0],[.93,.07,.32,.86,290,0],[1,.07,.32,.86,290,0]];
 function positionAt(p,keys){let a=keys[0],b=keys.at(-1);for(let i=1;i<keys.length;i++){if(p<=keys[i][0]){a=keys[i-1];b=keys[i];break}}const t=smooth(clamp((p-a[0])/(b[0]-a[0])));return a.slice(1).map((v,i)=>mix(v,b[i+1],t))}
 let size={W:0,H:0,keys:null,mobile:false};
 function measure(){const W=stage.clientWidth,H=stage.clientHeight,m=phone.matches;let title=m?Math.min(60,Math.max(40,W*.12)):Math.min(100,W*.066,Math.max(40,(H*.52-170)/2.9));stage.style.setProperty('--hero-title',title+'px');const keys=(m?keyframesPhone:keyframesDesktop).map(r=>[...r]);const bottom=()=>el.actions.getBoundingClientRect().bottom-stage.getBoundingClientRect().top;let ab=bottom();const maxY=H-keys[0][4]-84;if(ab+24>maxY){title=Math.max(36,title-(ab+24-maxY)/2.9);stage.style.setProperty('--hero-title',title+'px');ab=bottom()}keys[0][2]=Math.min(maxY,Math.max(keys[0][2]*H,ab+24))/H;size={W,H,keys,mobile:m}}
-let lastChapter=-1,lastFinish=null,lastFixed=null,lastAccepted=null,lastLabel='';
+let bodyY=0,lastChapter=-1,lastFinish=null,lastFixed=null,lastAccepted=null,lastLabel='';
 function renderJourney(p){const{W,H,keys,mobile:m}=size;const k=positionAt(p,keys);
   traveller.style.width=k[2]*W+'px';traveller.style.height=k[3]+'px';traveller.style.transform=`translate3d(${k[0]*W}px,${k[1]*H}px,0) rotate(${k[4]*TILT}deg)`;
-  const morph=ramp(p,.17,.31),finish=ramp(p,.80,.9);
+  const morph=ramp(p,.17,.31),finish=ramp(p,.86,.93),find=ramp(p,.615,.645),find2=ramp(p,.645,.675);
   el.table.style.opacity=1-morph;el.table.style.transform=`translateY(${-morph*40}px) scaleY(${1-morph*.5})`;
   el.rowOne.style.transform=`translate(${morph*70}px,${-morph*18}px) rotate(${morph*3*TILT}deg)`;el.rowThree.style.transform=`translate(${morph*90}px,${morph*26}px) rotate(${-morph*3*TILT}deg)`;
   el.query.style.opacity=morph*(1-finish);el.query.style.transform=`translateY(${(1-morph)*30-finish*20}px)`;
+  el.q1.style.opacity=1-find;el.q1.style.transform=`translateY(${-find*12}px)`;el.q2.style.opacity=find2;el.q2.style.transform=`translateY(${(1-find2)*12}px)`;el.q2lines.forEach((l,i)=>{const t=ramp(p,.648+i*.01,.675+i*.01);l.style.opacity=t;l.style.transform=`translateX(${(1-t)*-14}px)`});const qo=ramp(p,.685,.71);el.q2out.style.opacity=qo;el.q2out.style.transform=`translateY(${(1-qo)*6}px)`;el.q1.setAttribute('aria-hidden',String(find>.5));el.q2.setAttribute('aria-hidden',String(find<=.5));
   el.qlines.forEach((l,i)=>{const t=ramp(p,.2+i*.018,.26+i*.018);l.style.opacity=t;l.style.transform=`translateX(${(1-t)*-14}px)`});
-  el.success.style.opacity=finish;el.success.style.transform=`translateY(${(1-finish)*20}px) scale(${.97+finish*.03})`;el.seal.style.setProperty('--draw',1-ramp(p,.85,.93));
+  el.success.style.opacity=finish;el.success.style.transform=`translateY(${(1-finish)*20}px) scale(${.97+finish*.03})`;el.seal.style.setProperty('--draw',1-ramp(p,.89,.955));
   const solved=finish>.5;if(solved!==lastFinish){traveller.classList.toggle('solved',solved);lastFinish=solved}
-  const label=solved?'order 1042 · resolved':morph>.5?'investigation.sql':'orders · 3 rows';if(label!==lastLabel){lastLabel=label;el.label.style.opacity=0;setTimeout(()=>{el.label.textContent=label;el.label.style.opacity=1},140)}
+  const label=solved?'order 1042 · resolved':find>.5?'find-warehouse.sql':morph>.5?'investigation.sql':'orders · 3 rows';if(label!==lastLabel){lastLabel=label;el.label.style.opacity=0;setTimeout(()=>{el.label.textContent=label;el.label.style.opacity=1},140)}
   const fade=1-ramp(p,.02,.13);el.opening.style.opacity=fade;el.opening.style.transform=`translateY(${-ramp(p,0,.2)*H*.35}px)`;el.opening.style.visibility=fade<.01?'hidden':'visible';el.opening.style.pointerEvents=fade>.5?'auto':'none';
   copies.forEach(([c,a,b,cc,d])=>{const o=windowAt(p,a,b,cc,d);c.style.opacity=o;c.style.transform=`translateY(${(mix(b,cc,.5)-p)*H*(m?.9:1.4)}px)`;c.style.visibility=o<.01?'hidden':'visible'});
-  const ao=windowAt(p,.40,.49,.81,.90),ax=(m?.11:.55)*W,ay=(m?.585:.43)*H;api.style.width=(m?.78:.39)*W+'px';api.style.opacity=ao;api.style.transform=`translate3d(${ax+(1-ao)*40}px,${ay+(1-ao)*48}px,0) rotate(${mix(2,0,ramp(p,.47,.8))*TILT}deg)`;api.style.visibility=ao<.01?'hidden':'visible';
-  const fly=ramp(p,.39,.51),to=windowAt(p,.35,.40,.75,.83);token.style.opacity=to;const tx=m?mix(.49,.55,fly)*W:mix(.54,.69,fly)*W,ty=m?mix(.49,.61,fly)*H:mix(.57,.49,fly)*H,arc=Math.sin(fly*Math.PI)*-40;token.style.transform=`translate3d(${tx}px,${ty+arc}px,0) rotate(${mix(-4,2,fly)*TILT}deg) scale(${1+Math.sin(fly*Math.PI)*.08})`;
-  const fixed=p>=.73,accepted=p>=.80;
-  if(fixed!==lastFixed){lastFixed=fixed;setText(el.tokenValue,fixed?'7':'NULL');setText(el.payload,fixed?'7':'null');token.classList.toggle('ok',fixed);el.payload.style.background=fixed?'var(--ok)':'';el.payload.style.color=fixed?'var(--ok-ink)':''}
-  const apiState=accepted?2:fixed?1:0;if(apiState!==lastAccepted){lastAccepted=apiState;el.response.classList.toggle('ok',accepted);setText(el.status,accepted?'200 OK':fixed?'Retrying…':'400 Bad Request');el.message.textContent=accepted?'Accepted for dispatch':fixed?'warehouse_id: 7':'Missing warehouse_id'}
-  el.proof.style.opacity=ramp(p,.63,.7);el.proof.style.transform=`translateY(${(1-ramp(p,.63,.7))*6}px)`;
+  const ao=windowAt(p,.40,.49,.87,.93),ax=(m?.07:.55)*W,ay=(m?.597:.47)*H;api.style.width=(m?.86:.39)*W+'px';api.style.opacity=ao;api.style.transform=`translate3d(${ax+(1-ao)*40}px,${ay+(1-ao)*48}px,0) rotate(${mix(2,0,ramp(p,.47,.8))*TILT}deg)`;api.style.visibility=ao<.01?'hidden':'visible';
+  [[.44,.50,.49],[.71,.75,.755],[.79,.83,.835]].forEach(([a,b,c],i)=>{const t=ramp(p,a,b),r=el.reqs[i];r.style.opacity=t;r.style.transform=`translateY(${(1-t)*10}px)`;const on=p>=c;if(el.codes[i].classList.contains('on')!==on)el.codes[i].classList.toggle('on',on)});
+  // The token makes two trips: NULL from the query into the failing request, then 7 from the lookup into the PATCH.
+  const f1=ramp(p,.39,.51),f2=ramp(p,.69,.745),o1=windowAt(p,.35,.40,.53,.58),o2=windowAt(p,.665,.69,.76,.8),second=p>.6;token.style.opacity=Math.max(o1,o2);
+  let tx,ty,fly;if(!second){fly=f1;tx=m?mix(.49,.55,f1)*W:mix(.54,.69,f1)*W;ty=m?mix(.49,.61,f1)*H:mix(.61,.53,f1)*H}else{fly=f2;const sx=k[0]*W+(m?120:220),sy=k[1]*H+(m?175:250),exx=ax+(m?.42:.5)*(m?.86:.39)*W,eyy=ay+(bodyY||(bodyY=el.patchBody.getBoundingClientRect().top-api.getBoundingClientRect().top))-(m?10:8);tx=mix(sx,exx,f2);ty=mix(sy,eyy,f2)}
+  const arc=Math.sin(fly*Math.PI)*-40;token.style.transform=`translate3d(${tx}px,${ty+arc}px,0) rotate(${mix(-4,2,fly)*TILT}deg) scale(${1+Math.sin(fly*Math.PI)*.08})`;
+  if(second!==lastFixed){lastFixed=second;setText(el.tokenValue,second?'7':'NULL');token.classList.toggle('ok',second)}
   el.stamp.style.opacity=windowAt(p,.12,.2,.96,1.01);
   el.guide.style.opacity=windowAt(p,.12,.24,.76,.87)*.9;el.guide.style.transform=`translateY(${p*70+Math.sin(p*24)*5}px)`;
   el.table.setAttribute('aria-hidden',String(morph>.98));el.query.setAttribute('aria-hidden',String(morph<.02||finish>.98));el.success.setAttribute('aria-hidden',String(finish<.02));
@@ -80,7 +83,7 @@ let reading=reduced.matches,readProgress=0,jp=0,jt=0,pp=0,pt=0,ticking=false,las
 function targets(){const r=journey.getBoundingClientRect(),range=journey.offsetHeight-stage.clientHeight;jt=reading?readProgress:clamp(-r.top/Math.max(1,range));const pr=portal.getBoundingClientRect();pt=reduced.matches?1:clamp(-pr.top/Math.max(1,portal.offsetHeight-portalStage.clientHeight))}
 function frame(t){const dt=Math.min(64,t-(lastT||t))/1000;lastT=t;targets();const k=reduced.matches?1:1-Math.exp(-dt*11);jp+=(jt-jp)*k;pp+=(pt-pp)*k;if(Math.abs(jt-jp)<.0004)jp=jt;if(Math.abs(pt-pp)<.0004)pp=pt;renderJourney(jp);renderPortal(pp);renderParallax();updateHeader();if(jp!==jt||pp!==pt){requestAnimationFrame(frame)}else{ticking=false;lastT=0}}
 function queue(){if(!ticking){ticking=true;requestAnimationFrame(frame)}}
-addEventListener('scroll',queue,{passive:true});addEventListener('resize',()=>{measure();queue()});addEventListener('pageshow',queue);
+addEventListener('scroll',queue,{passive:true});addEventListener('resize',()=>{bodyY=0;measure();queue()});document.fonts?.ready.then(()=>{bodyY=0;queue()});addEventListener('pageshow',queue);
 function setReading(v){reading=v;document.body.classList.toggle('reading-journey',reading);const t=$('.motion-toggle');t.setAttribute('aria-pressed',String(reading));t.textContent=reading?'Back to scrolling':'Step through instead';measure();queue()}
 $('.motion-toggle').addEventListener('click',()=>{readProgress=stops.reduce((b,s)=>Math.abs(s-jp)<Math.abs(b-jp)?s:b,0);setReading(!reading);scrollTo({top:journey.offsetTop,behavior:'instant'})});
 reduced.addEventListener('change',()=>setReading(reduced.matches));

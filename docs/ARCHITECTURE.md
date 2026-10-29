@@ -8,11 +8,11 @@ The deployed artifact is `index.html`. Its pictures, fonts, PDF CV and Practice 
 
 ## Source layout and build
 
-`src/index.template.html` preserves the original document order. Five CSS fragments retain the original cascade, including the final compatibility rules. Four JavaScript fragments retain their execution order:
+`src/index.template.html` preserves the original document order. CSS fragments retain the original cascade, including the final compatibility rules. Four JavaScript fragments retain their execution order:
 
 1. `main.js`: the case journey, explanation demos, project link setup and runner.
 2. `controls.js`: theme switching, persisted interface preferences and translation.
-3. `gallery.js`: the photography deck, input handling, viewer and optional sound.
+3. `gallery.js`: the photo book, page-turn queue, responsive spreads and localized captions.
 4. `easter-egg.js`: the multi-scene hidden arcade. See [ARCADE.md](ARCADE.md).
 
 The build recognizes five marker forms:
@@ -39,27 +39,17 @@ Young Serif font faces and typography are shared by both visual modes. The lante
 
 Translation preserves SQL and code examples. The portfolio stores interface choices in local storage and tolerates storage being unavailable. The language switch does not translate the downloaded English CV, photographs, original app screenshots or linked external projects.
 
-## Projector motion
+## Photo book
 
-Each mounted photograph has a front, a back and thin side edges. CSS perspective and `translate3d`/`rotateY` provide the depth. `requestAnimationFrame` calculates each pose from elapsed time rather than frame count.
+The photo-book section is imported from the supplied `andres-portfolio-v2.html` design. Each CSS 3D leaf has a front and a back, with its transform origin at the spine. A one-second rotation moves it to the opposite side of the spread, with a transient paper shadow. A bounded queue serializes rapid input. A timeout fallback completes the turn if a transition event is interrupted.
 
-For an ordinary 1,400 ms forward turn, all cards follow one continuous rail. A shared quintic ease controls the position, with zero velocity and acceleration at both ends. Position, depth and angle are calculated from the same distance parameter; no card reverses its rotation halfway through the turn.
+Wide layouts use a title page followed by two-sided photo leaves. Narrow layouts show one photo per leaf. All 15 photos are shuffled once per load; changing layout retains the current photo rather than reshuffling. Native arrow buttons, left/right keys, page clicks and horizontal swipes navigate the same state. Only currently visible page faces expose their links to keyboard and assistive technology. Reduced motion removes the page-turn animation.
 
-| Progress | Outgoing frame | Incoming frame |
-| --- | --- | --- |
-| Start | Face-on at the front. | At the right side, nearly edge-on with its left edge towards the viewer. |
-| Middle | Moves left and back; its left edge recedes. | Moves left and forward, opening towards the viewer. |
-| End | Nearly edge-on on the left, with its right edge visible. | Face-on at the front, with a restrained settling rotation. |
+The Instagram link is available beside the heading and on the final page. Gallery autoplay, projector sound and the enlarged dialog from the earlier carousel are intentionally replaced by the book's direct page interaction. The separate arcade retains its own sound and controls unchanged.
 
-Reverse navigation mirrors the path. A perspective correction keeps the resting side frames just on the front-facing side of edge-on. The small final rotational adjustment is under one degree, has smooth endpoints and is suppressed during queued turns. It is not a position spring.
+## Revised sandbox investigation
 
-The card parent remains opaque and retains its 3D context. Alpha is applied to individual faces and edges, avoiding Chromium's flattening of a parent with fractional opacity. Depth sorting is handled by the 3D scene rather than a changing per-frame z-index.
-
-A swipe must exceed 40 pixels and be predominantly horizontal. Distance and speed select one to five queued turns. A multi-frame sequence begins with a 740 ms turn and increases towards 1,400 ms for the last. The queue is bounded. Vertical touch scrolling remains available.
-
-Fifteen cards are shuffled with Fisher–Yates once on load, using browser randomness. Navigation wraps around that fixed order. The play button schedules the next turn after a 4.4 second rest. Manual navigation, an offscreen gallery or a hidden document stops the slideshow.
-
-Sound is off initially. Enabling it creates a Web Audio context from the button action. A short filtered noise impulse and decaying sine tone provide the click and light ring. There is no microphone permission, remote audio request or sound file.
+The scroll story now checks other Lumen orders to identify Tallinn warehouse 7. The API panel preserves three explicit request/response pairs: initial POST dispatch returns 400; PATCH sets the warehouse and returns 200; the second POST dispatch returns 202 Accepted. These are fictional sandbox examples, not a live API. The evidence token travels from SQL to the appropriate request. Readability rules increase small interface text, and on phones the language switch moves into the menu.
 
 ## Photograph assets
 
@@ -70,7 +60,7 @@ To replace a photo:
 1. Replace its asset or add a new asset entry and marker.
 2. Update the relevant SVG viewport and English/Estonian captions in the template.
 3. Update `bytes` and `sha256` in the asset manifest after an intentional replacement.
-4. Rebuild, run checks and inspect the front view, edge-on transition and enlarged view.
+4. Rebuild, run checks and inspect both page faces, the fold and the single-page phone view.
 
 The current deck and its checks are configured for 15 pictures. Adjust both together when changing the deck size.
 

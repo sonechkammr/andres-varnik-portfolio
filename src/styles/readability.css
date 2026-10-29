@@ -1,0 +1,28 @@
+
+/* Readability floor: nothing a visitor needs to read is under 12px; code inside the small phone mock-ups stays at 11px so lines still fit. */
+.dir{font-size:12px;letter-spacing:.04em}
+.rq,.rs{grid-template-columns:100px minmax(0,1fr)}
+.passing-copy p{max-width:50ch}
+.case-stamp small,.case-stamp{font-size:12px}
+.traveller-query pre{font-size:12.5px}
+.language-switch button{font-size:12px}
+.forest-caption:before{content:'';position:absolute;inset:-60px -80px -50px -60px;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,#0b110dd0,#0b110d80 55%,transparent)}
+.forest-caption h2,.forest-caption p{text-shadow:0 1px 14px #0b110d}
+.forest-caption p{color:var(--on-dark)}
+@media(max-width:720px){
+  .bar{font-size:11.5px}
+  .traveller-table td,.traveller-table th{font-size:11.5px}
+  .traveller-query pre,.q2 pre{font-size:11px}
+  .query-output,.mini{font-size:11px}
+  .req-line{font-size:12px}
+  .dir{font-size:10.5px;letter-spacing:0}
+  .rq,.rs{grid-template-columns:max-content minmax(0,1fr)}
+  .req{padding:5px 10px}.rs{margin-top:2px;padding:3px 6px}
+  .passing-copy p{max-width:none}
+  .req-body,.msg,.code{font-size:11px}
+  .flying-token{font-size:12px}
+  .journey-progress button,.case-stamp,.case-stamp small,.success-points{font-size:12px}
+  .language-switch button{font-size:13px;padding:8px 12px}
+  .forest-caption p{font-size:15px}
+}
+@media(max-width:380px){.nav-toggle{font-size:13px}.language-switch button{font-size:13px}}

@@ -8,12 +8,12 @@ import assert from 'node:assert/strict';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const html = await readFile(path.join(root, 'index.html'), 'utf8');
 const scripts = [...html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)];
-assert.equal(scripts.length, 4, 'Main, controls, photography and arcade scripts must be present.');
+assert.equal(scripts.length, 4, 'Main, controls, photo-book and arcade scripts must be present.');
 scripts.forEach((match, index) => new Script(match[1], { filename: `inline-${index}.js` }));
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
 assert.equal(new Set(ids).size, ids.length, 'Duplicate HTML IDs.');
 for (const match of html.matchAll(/\bhref="#([^"]+)"/g)) assert(ids.includes(match[1]), `Missing anchor: ${match[1]}`);
-for (const id of ['lantern-switch', 'phase', 'runner-track', 'photography', 'pg-viewer']) assert(ids.includes(id), `Missing feature: ${id}`);
+for (const id of ['lantern-switch', 'phase', 'runner-track', 'photography', 'pb-book']) assert(ids.includes(id), `Missing feature: ${id}`);
 const photos = [...html.matchAll(/data-photo-id="([^"]+)"/g)].map(match => match[1]);
 assert.equal(photos.length, 15, 'All 15 photographs must be included.');
 assert.equal(new Set(photos).size, 15, 'Photographs must not repeat in the initial deck.');
@@ -29,6 +29,11 @@ const wheel = await readFile(path.join(root, 'assets/projects/practice-wheel.htm
 for (const [index, match] of [...wheel.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)].entries()) new Script(match[1], { filename: `practice-wheel-${index}.js` });
 console.log(`Passed: ${scripts.length} scripts, ${ids.length} unique IDs, 15 photos, ${manifest.length} intact assets and the embedded Practice Wheel.`);
 console.log('These static checks do not replace browser, touch or screen-reader testing.');
-await import('./check-motion.mjs');
+
 
 await import('./check-arcade.mjs');
+
+assert(html.includes('id="pb-photos"'), 'Photo-book source template is missing.');
+assert(html.includes('PATCH') && html.includes('202'), 'The revised sandbox API sequence is missing.');
+assert(!html.includes('id="pg-stage"'), 'The old projector must not ship alongside the book.');
+console.log('Passed: photo-book integration and revised sandbox investigation.');
