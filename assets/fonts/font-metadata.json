@@ -1,0 +1,100 @@
+[
+  {
+    "file": "assets/fonts/font-ttf-01.ttf",
+    "names": {
+      "0": [
+        "Copyright 2020 The DM Mono Project Authors (https://www.github.com/googlefonts/dm-mono)"
+      ],
+      "1": [
+        "DM Mono"
+      ],
+      "14": [
+        "http://scripts.sil.org/OFL"
+      ]
+    }
+  },
+  {
+    "file": "assets/fonts/font-ttf-02.ttf",
+    "names": {
+      "0": [
+        "Copyright 2020 The DM Mono Project Authors (https://www.github.com/googlefonts/dm-mono)"
+      ],
+      "1": [
+        "DM Mono Medium"
+      ],
+      "14": [
+        "http://scripts.sil.org/OFL"
+      ]
+    }
+  },
+  {
+    "file": "assets/fonts/font-ttf-03.ttf",
+    "names": {
+      "0": [
+        "Copyright 2014 The DM Sans Project Authors (https://github.com/googlefonts/dm-fonts)"
+      ],
+      "1": [
+        "DM Sans"
+      ],
+      "14": [
+        "https://scripts.sil.org/OFL"
+      ]
+    }
+  },
+  {
+    "file": "assets/fonts/font-ttf-04.ttf",
+    "names": {
+      "0": [
+        "Copyright 2014 The DM Sans Project Authors (https://github.com/googlefonts/dm-fonts)"
+      ],
+      "1": [
+        "DM Sans Medium"
+      ],
+      "14": [
+        "https://scripts.sil.org/OFL"
+      ]
+    }
+  },
+  {
+    "file": "assets/fonts/font-ttf-05.ttf",
+    "names": {
+      "0": [
+        "Copyright 2014 The DM Sans Project Authors (https://github.com/googlefonts/dm-fonts)"
+      ],
+      "1": [
+        "DM Sans SemiBold"
+      ],
+      "14": [
+        "https://scripts.sil.org/OFL"
+      ]
+    }
+  },
+  {
+    "file": "assets/fonts/font-ttf-06.ttf",
+    "names": {
+      "0": [
+        "Copyright 2014 The DM Sans Project Authors (https://github.com/googlefonts/dm-fonts)"
+      ],
+      "1": [
+        "DM Sans"
+      ],
+      "14": [
+        "https://scripts.sil.org/OFL"
+      ]
+    }
+  },
+  {
+    "file": "assets/fonts/font-ttf-07.ttf",
+    "names": {
+      "0": [
+        "Copyright 2012 The Libre Caslon Display Authors (https://github.com/impallari/Libre-Caslon-Display)"
+      ],
+      "1": [
+        "Libre Caslon Display"
+      ],
+      "14": [
+        "http://scripts.sil.org/OFL"
+      ]
+    }
+  }
+]

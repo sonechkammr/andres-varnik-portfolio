@@ -1,0 +1,1941 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#efe4d8">
+  <title>дзен или забей | колесо практики 3.1</title>
+  <style>
+    :root {
+      --bg-1: #f6eee7;
+      --bg-2: #efe1d4;
+      --bg-3: #ebe7e1;
+      --card: rgba(255,255,255,0.66);
+      --card-strong: rgba(255,255,255,0.82);
+      --line: rgba(62,45,38,0.10);
+      --line-strong: rgba(62,45,38,0.14);
+      --text: #332723;
+      --muted: #776a63;
+      --accent: #b67573;
+      --accent-dark: #955a59;
+      --accent-soft: #dec2c1;
+      --sage: #bcc19d;
+      --mist: #ccd6e0;
+      --sand: #e0cfbe;
+      --clay: #bf9c7f;
+      --blush: #d8b2b0;
+      --cream: #ece1d3;
+      --shadow: 0 24px 64px rgba(76,56,45,0.14);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(182,117,115,0.24), transparent 26rem),
+        radial-gradient(circle at 92% 10%, rgba(188,193,157,0.28), transparent 24rem),
+        radial-gradient(circle at 50% 90%, rgba(204,214,224,0.44), transparent 28rem),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2) 58%, var(--bg-3));
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.20;
+      background-image:
+        linear-gradient(rgba(62,45,38,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(62,45,38,0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(to bottom, black 0%, transparent 88%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 24px));
+      margin: 0 auto;
+      padding: 18px 0 54px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 15px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.46);
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .brand-icon {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(182,117,115,0.14);
+      color: var(--accent-dark);
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      min-height: 44px;
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.46);
+      font-weight: 760;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .hero-main {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(26px, 4vw, 42px);
+      min-height: 360px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.70), rgba(255,255,255,0.56));
+    }
+
+    .hero-main::after {
+      content: "ॐ";
+      position: absolute;
+      right: clamp(12px, 3vw, 30px);
+      bottom: clamp(2px, 2vw, 12px);
+      color: rgba(51,39,35,0.05);
+      font-family: Georgia, serif;
+      font-size: clamp(110px, 20vw, 220px);
+      line-height: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.54);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-dark);
+      box-shadow: 0 0 0 6px rgba(182,117,115,0.14);
+    }
+
+    h1 {
+      margin: 22px 0 0;
+      font-size: clamp(48px, 9vw, 98px);
+      line-height: 0.84;
+      letter-spacing: -0.08em;
+    }
+
+    .script {
+      display: block;
+      color: var(--accent-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.07em;
+    }
+
+    .hero-copy {
+      max-width: 620px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 21px);
+      line-height: 1.62;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn {
+      border: 0;
+      font: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      min-height: 54px;
+      padding: 0 18px;
+      background: var(--text);
+      color: white;
+      font-weight: 900;
+      box-shadow: 0 14px 28px rgba(51,39,35,0.18);
+    }
+
+    .btn-secondary {
+      min-height: 54px;
+      padding: 0 18px;
+      background: rgba(255,255,255,0.54);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-weight: 780;
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .ritual-card {
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.52);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ritual-card::after {
+      content: "☸";
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      color: rgba(182,117,115,0.12);
+      font-size: 28px;
+    }
+
+    .ritual-title {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .ritual-list {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .ritual-list li {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      color: var(--muted);
+      line-height: 1.45;
+      align-items: start;
+    }
+
+    .step {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(182,117,115,0.12);
+      color: var(--accent-dark);
+      font-weight: 900;
+    }
+
+    .quote-card {
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.60), rgba(255,255,255,0.42));
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .quote-mark {
+      font-size: 24px;
+      color: var(--accent-dark);
+      margin-bottom: 6px;
+    }
+
+    .quote-text {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--text);
+    }
+
+    .quote-source {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .quote-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      opacity: 0.86;
+    }
+
+    .main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 420px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .wheel-card {
+      padding: clamp(18px, 3vw, 28px);
+    }
+
+    .section-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 44px);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    .filter-block {
+      display: grid;
+      gap: 12px;
+    }
+
+    .filter-label {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .row-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.54);
+      color: var(--text);
+      min-height: 46px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 780;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .pill:hover {
+      transform: translateY(-1px);
+    }
+
+    .pill.active {
+      background: var(--text);
+      color: white;
+      box-shadow: 0 10px 20px rgba(51,39,35,0.12);
+    }
+
+    .pill .icon {
+      color: var(--accent-dark);
+      font-size: 16px;
+    }
+
+    .pill.active .icon {
+      color: #f2dcdc;
+    }
+
+    details.more-filters {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.42);
+      overflow: hidden;
+    }
+
+    details.more-filters summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-weight: 820;
+    }
+
+    details.more-filters summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-note {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 760;
+    }
+
+    .more-inner {
+      padding: 0 16px 16px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.50);
+      color: var(--text);
+      padding: 9px 12px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 760;
+      transition: background .15s ease, transform .15s ease;
+    }
+
+    .chip:hover {
+      transform: translateY(-1px);
+    }
+
+    .chip.active {
+      background: var(--accent-dark);
+      color: white;
+    }
+
+    .wheel-zone {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 250px;
+      gap: 18px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .wheel-wrap {
+      position: relative;
+      width: min(520px, 100%);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      display: grid;
+      place-items: center;
+    }
+
+    .pointer {
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 22px solid transparent;
+      border-right: 22px solid transparent;
+      border-top: 44px solid var(--text);
+      filter: drop-shadow(0 8px 10px rgba(51,39,35,0.16));
+      z-index: 5;
+    }
+
+    .spinner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      transition: transform 4.2s cubic-bezier(.12,.82,.1,1);
+      filter: drop-shadow(0 22px 44px rgba(76,56,45,0.14));
+    }
+
+    .spinner::before {
+      content: "";
+      position: absolute;
+      inset: -3%;
+      border-radius: 50%;
+      background:
+        repeating-conic-gradient(from -4deg, rgba(255,255,255,0.88) 0 10deg, rgba(255,255,255,0) 10deg 30deg);
+      -webkit-mask: radial-gradient(circle, transparent 67%, black 69%);
+      mask: radial-gradient(circle, transparent 67%, black 69%);
+      opacity: 0.85;
+      z-index: 0;
+    }
+
+    .wheel-face {
+      position: absolute;
+      inset: 4%;
+      border-radius: 50%;
+      border: 12px solid rgba(255,255,255,0.78);
+      background:
+        conic-gradient(
+          from -20deg,
+          #d9b2b1 0 45deg,
+          #bcc19d 45deg 90deg,
+          #e0cfbe 90deg 135deg,
+          #bf9c7f 135deg 180deg,
+          #ccd6e0 180deg 225deg,
+          #e3d3c3 225deg 270deg,
+          #eedfe0 270deg 315deg,
+          #c78d8b 315deg 360deg
+        );
+      box-shadow: inset 0 0 0 1px rgba(51,39,35,0.10);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .wheel-face::before {
+      content: "";
+      position: absolute;
+      inset: 18%;
+      border-radius: 50%;
+      border: 1px dashed rgba(51,39,35,0.14);
+    }
+
+    .wheel-center {
+      position: absolute;
+      width: 44%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 18px;
+      background: radial-gradient(circle, rgba(255,255,255,0.96), rgba(255,255,255,0.88));
+      border: 1px solid rgba(51,39,35,0.10);
+      box-shadow: inset 0 0 24px rgba(51,39,35,0.05);
+      z-index: 2;
+    }
+
+    .wheel-om {
+      font-family: Georgia, serif;
+      font-size: clamp(44px, 7vw, 76px);
+      line-height: 0.9;
+      color: var(--accent-dark);
+    }
+
+    .wheel-state {
+      margin-top: 6px;
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.96;
+    }
+
+    .side-panels {
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 16px;
+      background: rgba(255,255,255,0.42);
+    }
+
+    .mini-card h3 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .mini-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .spin-btn {
+      min-height: 60px;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      color: white;
+      font-weight: 900;
+      font-size: 18px;
+      box-shadow: 0 16px 28px rgba(149,90,89,0.24);
+    }
+
+    .scroll-hint {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      border: 1px dashed var(--line-strong);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      background: rgba(255,255,255,0.32);
+    }
+
+    .result-card {
+      padding: 18px;
+      position: sticky;
+      top: 12px;
+    }
+
+    .result-media {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      border-radius: 24px;
+      border: 1px solid rgba(51,39,35,0.08);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(182,117,115,0.30), transparent 15rem),
+        linear-gradient(135deg, var(--sand), var(--mist));
+    }
+
+    .result-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.86) contrast(0.95);
+    }
+
+    .placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+      color: rgba(51,39,35,0.62);
+    }
+
+    .placeholder .om {
+      font-family: Georgia, serif;
+      font-size: 58px;
+      color: rgba(149,90,89,0.48);
+      line-height: 1;
+    }
+
+    .placeholder p {
+      margin: 8px 0 0;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .result-body {
+      padding: 16px 6px 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 320px;
+    }
+
+    .result-kicker {
+      color: var(--accent-dark);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .result-title {
+      margin: 0;
+      line-height: 0.94;
+      letter-spacing: -0.06em;
+      font-size: clamp(34px, 5vw, 58px);
+      overflow-wrap: anywhere;
+    }
+
+    .result-title.small {
+      font-size: clamp(28px, 4.4vw, 46px);
+    }
+
+    .result-title.tiny {
+      font-size: clamp(24px, 4vw, 38px);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(51,39,35,0.08);
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .tag-category {
+      background: #efe0d4;
+      color: #7a5845;
+    }
+
+    .tag-mood {
+      background: #f1d8d8;
+      color: #915c5b;
+    }
+
+    .tag-level {
+      background: #e4ecd5;
+      color: #657147;
+    }
+
+    .tag-duration {
+      background: #dfe8f1;
+      color: #5b6f86;
+    }
+
+    .tag-kind {
+      background: #eee1f1;
+      color: #7c5d84;
+    }
+
+    .result-copy {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.62;
+      font-size: 16px;
+    }
+
+    .result-cta {
+      margin-top: auto;
+      min-height: 54px;
+      background: var(--text);
+      color: white;
+      font-weight: 900;
+    }
+
+    .safe-note {
+      margin-top: 14px;
+      border-radius: 20px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.38);
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .links-section {
+      margin-top: 20px;
+      padding: 18px;
+    }
+
+    .links-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .link-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 16px;
+      background: rgba(255,255,255,0.44);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .link-card h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .link-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .link-card a {
+      margin-top: auto;
+      font-weight: 800;
+      text-decoration: none;
+      color: var(--accent-dark);
+      word-break: break-word;
+    }
+
+    details.library {
+      margin-top: 20px;
+      overflow: hidden;
+    }
+
+    details.library summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      font-weight: 860;
+    }
+
+    details.library summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .library-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .library-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.46);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .library-body {
+      padding: 0 18px 18px;
+    }
+
+    .library-helper {
+      margin: 2px 2px 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .video-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.48);
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .video-card img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.84) contrast(0.95);
+    }
+
+    .video-info {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .video-title {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+    }
+
+    .mini-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .mini-tag {
+      font-size: 12px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(51,39,35,0.08);
+      font-weight: 780;
+    }
+
+    .mini-tag.category { background: #efe0d4; color: #7a5845; }
+    .mini-tag.level { background: #e4ecd5; color: #657147; }
+    .mini-tag.duration { background: #dfe8f1; color: #5b6f86; }
+    .mini-tag.kind { background: #eee1f1; color: #7c5d84; }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding-top: 22px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 1040px) {
+      .hero, .main {
+        grid-template-columns: 1fr;
+      }
+
+      .wheel-zone {
+        grid-template-columns: 1fr;
+      }
+
+      .result-card {
+        position: static;
+      }
+
+      .links-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(100% - 16px, 1180px);
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-links {
+        width: 100%;
+      }
+
+      .nav-links a {
+        flex: 1 1 auto;
+      }
+
+      .hero-actions {
+        width: 100%;
+      }
+
+      .hero-actions .btn {
+        flex: 1 1 auto;
+      }
+
+      .links-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .library-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-top, .links-head {
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topbar">
+      <div class="brand">
+        <span class="brand-icon">ॐ</span>
+        дзен или забей
+      </div>
+      <div class="nav-links">
+        <a href="#wheel-section">к колесу</a>
+        <a href="#links">ссылки</a>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="card hero-main">
+        <div class="eyebrow"><span></span>практика без насилия над собой</div>
+        <h1>колесо <span class="script">практики</span></h1>
+        <p class="hero-copy">
+          Когда не хочется выбирать, просто доверься состоянию. Крути колесо, получай мягкую подсказку и переходи к видео, которое подходит именно сегодня.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#wheel-section">прокрутить практику</a>
+          <a class="btn btn-secondary" href="#library">все практики</a>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <div class="card ritual-card">
+          <h2 class="ritual-title">маленький ритуал</h2>
+          <ul class="ritual-list">
+            <li><span class="step">1</span><span>выбери состояние, или оставь всё как есть</span></li>
+            <li><span class="step">2</span><span>нажми на колесо и не думай слишком долго</span></li>
+            <li><span class="step">3</span><span>открой выпавшее видео и сделай столько, сколько можешь</span></li>
+          </ul>
+        </div>
+
+        <div class="card quote-card">
+          <div class="quote-mark">☸</div>
+          <p class="quote-text" id="quoteText">иногда лучшая практика, это не идеальная практика, а просто та, которую ты реально сделал сегодня</p>
+          <div class="quote-source" id="quoteSource">дзен или забей</div>
+          <div class="quote-note">в коде ниже есть массив QUOTES, туда удобно добавлять новые цитаты</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="main">
+      <div class="card wheel-card" id="wheel-section">
+        <div class="section-top">
+          <h2 class="section-title">выбери состояние</h2>
+          <div class="section-note" id="poolCount">0 практик</div>
+        </div>
+
+        <div class="filter-block">
+          <div>
+            <p class="filter-label">состояние</p>
+            <div class="row-wrap" id="moodButtons"></div>
+          </div>
+
+          <details class="more-filters">
+            <summary>
+              <span>тонкая настройка</span>
+              <span class="summary-note">сложность, длина и тип практики</span>
+            </summary>
+            <div class="more-inner">
+              <div>
+                <p class="filter-label">темп</p>
+                <div class="row-wrap" id="intensityButtons"></div>
+              </div>
+              <div>
+                <p class="filter-label">время</p>
+                <div class="row-wrap" id="durationButtons"></div>
+              </div>
+              <div>
+                <p class="filter-label">тип практики</p>
+                <div class="chip-row" id="categoryButtons"></div>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="wheel-zone">
+          <div class="wheel-wrap">
+            <div class="pointer"></div>
+            <div class="spinner" id="spinner">
+              <div class="wheel-face"></div>
+              <div class="wheel-center" id="wheelCenter">
+                <div>
+                  <div class="wheel-om">ॐ</div>
+                  <div class="wheel-state">крути спокойно</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="side-panels">
+            <div class="mini-card">
+              <h3>что выпадет</h3>
+              <p>Мягкая практика, дыхание, утреннее включение, работа со спиной, поддержка при тревоге и другие форматы из подборки канала.</p>
+            </div>
+            <div class="mini-card">
+              <h3>как выбирать</h3>
+              <p>Оставь всё как есть, если хочешь чистый рандом. Если состояние уже понятно, используй фильтры и колесо будет подбирать мягче.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button class="btn spin-btn" id="spinBtn">крутить колесо</button>
+        </div>
+
+        <div class="scroll-hint">
+          Ниже есть полный каталог. Если не любишь рандом, просто прокрути вниз и разверни блок “все практики”.
+        </div>
+
+        <div class="safe-note">
+          Важно: если есть боль, травма, беременность, головокружение, давление или другие ограничения, выбирай мягкие практики и не делай ничего через боль. Это мягкий навигатор, а не медицинская рекомендация.
+        </div>
+      </div>
+
+      <aside class="card result-card">
+        <div class="result-media" id="resultMedia">
+          <div class="placeholder">
+            <div>
+              <div class="om">ॐ</div>
+              <p>пока колесо молчит,<br>но уже готово выбрать практику</p>
+            </div>
+          </div>
+        </div>
+        <div class="result-body" id="resultBody">
+          <div class="result-kicker">сегодняшняя практика</div>
+          <h2 class="result-title">ещё не выбрана</h2>
+          <p class="result-copy">Нажми на кнопку, и тут появится выпавшее видео, короткое описание и быстрая кнопка перехода.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="card links-section" id="links">
+      <div class="links-head">
+        <h2 class="section-title">полезные ссылки</h2>
+        <div class="section-note">камилла, бот, чат и анонимный вопрос</div>
+      </div>
+
+      <div class="links-grid">
+        <div class="link-card">
+          <h3>Канал</h3>
+          <p>Основной канал “дзен или забей”.</p>
+          <a href="https://t.me/dzenilizabey" target="_blank" rel="noopener noreferrer">t.me/dzenilizabey</a>
+        </div>
+
+        <div class="link-card">
+          <h3>Камилла</h3>
+          <p>Личный аккаунт Камиллы.</p>
+          <a href="https://t.me/kkamaya" target="_blank" rel="noopener noreferrer">@kkamaya</a>
+        </div>
+
+        <div class="link-card">
+          <h3>Бот проекта</h3>
+          <p>Бот с упосатхой и проектом.</p>
+          <a href="https://t.me/kkamasutrabot" target="_blank" rel="noopener noreferrer">@kkamasutrabot</a>
+        </div>
+
+        <div class="link-card">
+          <h3>Чат</h3>
+          <p>Обсуждение йоги, буддизма и аюрведы.</p>
+          <a href="https://t.me/+TWkP4E7lmWYwODli" target="_blank" rel="noopener noreferrer">открыть чат</a>
+        </div>
+
+        <div class="link-card">
+          <h3>Анонимный вопрос</h3>
+          <p>Можно задать вопрос анонимно.</p>
+          <a href="https://t.me/anonaskbot?start=9m0qxfo" target="_blank" rel="noopener noreferrer">anonaskbot</a>
+        </div>
+
+        <div class="link-card">
+          <h3>Кама с утра</h3>
+          <p>Бот, о котором ты просил добавить информацию отдельно.</p>
+          <a href="https://t.me/kkamasutrabot" target="_blank" rel="noopener noreferrer">@kkamasutrabot</a>
+        </div>
+      </div>
+    </section>
+
+    <details class="card library" id="library">
+      <summary>
+        <div class="library-title">
+          <span>все практики</span>
+          <span class="library-pill" id="libraryCount">0 видео</span>
+        </div>
+        <span class="library-pill" id="libraryToggleLabel">развернуть</span>
+      </summary>
+
+      <div class="library-body">
+        <p class="library-helper">
+          Здесь всегда показывается полный список всех видео, без скрытия по активным фильтрам.
+        </p>
+        <div class="library-grid" id="libraryGrid"></div>
+      </div>
+    </details>
+
+    <footer>
+      версия 3.1 · дзен или забей · когда не знаешь, что делать, начни с малого
+    </footer>
+  </main>
+
+  <script>
+    const PRACTICES = [
+  {
+    "title": "ЙОГА КОМПЛЕКС ДЛЯ СПИНЫ НА 8 МИНУТ",
+    "url": "https://www.youtube.com/watch?v=LaVVu6Krz_c",
+    "category": "Спина",
+    "mood": "мягко",
+    "level": "Новичок",
+    "duration": "8 минут",
+    "kind": "Мягкая",
+    "note": "Когда спина устала от сидения и хочется бережно вернуть телу подвижность.",
+    "id": "LaVVu6Krz_c",
+    "thumb": "https://img.youtube.com/vi/LaVVu6Krz_c/hqdefault.jpg"
+  },
+  {
+    "title": "РЕЛАКС ЙОГА",
+    "url": "https://www.youtube.com/watch?v=4bWU01exvCA",
+    "category": "Релакс",
+    "mood": "спокойствие",
+    "level": "Для всех",
+    "duration": "13 минут",
+    "kind": "Мягкая",
+    "note": "Если день был тяжёлый, а телу нужно немного заботы и выдоха.",
+    "id": "4bWU01exvCA",
+    "thumb": "https://img.youtube.com/vi/4bWU01exvCA/hqdefault.jpg"
+  },
+  {
+    "title": "УМНАЯ ЙОГА В КРОВАТИ",
+    "url": "https://www.youtube.com/watch?v=cC0HSOxKK7U&t=30s",
+    "category": "Кровать",
+    "mood": "мягко",
+    "level": "Новичок",
+    "duration": "13 минут",
+    "kind": "Мягкая",
+    "note": "Ленивый, но полезный вариант, когда хочется начать совсем без усилия.",
+    "id": "cC0HSOxKK7U",
+    "thumb": "https://img.youtube.com/vi/cC0HSOxKK7U/hqdefault.jpg"
+  },
+  {
+    "title": "силовая йога ЗА 15 МИНУТ",
+    "url": "https://www.youtube.com/watch?v=fC1eknKByDM",
+    "category": "Сила",
+    "mood": "энергия",
+    "level": "Средний",
+    "duration": "15 минут",
+    "kind": "Активнее",
+    "note": "Для тех дней, когда хочется не только успокоиться, но и по-настоящему включить тело.",
+    "id": "fC1eknKByDM",
+    "thumb": "https://img.youtube.com/vi/fC1eknKByDM/hqdefault.jpg"
+  },
+  {
+    "title": "зарядка для хорошего настроения",
+    "url": "https://www.youtube.com/watch?v=dJKFZD6DyrA&t=16s",
+    "category": "Утро",
+    "mood": "настрой",
+    "level": "Новичок",
+    "duration": "8 минут",
+    "kind": "Лёгкая",
+    "note": "Короткая утренняя разминка, чтобы мягко проснуться и войти в день.",
+    "id": "dJKFZD6DyrA",
+    "thumb": "https://img.youtube.com/vi/dJKFZD6DyrA/hqdefault.jpg"
+  },
+  {
+    "title": "восстанавливающая йога",
+    "url": "https://www.youtube.com/watch?v=1oRlirUk1KU",
+    "category": "Восстановление",
+    "mood": "спокойствие",
+    "level": "Для всех",
+    "duration": "10 минут",
+    "kind": "Мягкая",
+    "note": "Хороший выбор, когда не хочется подвигов, а хочется восстановления.",
+    "id": "1oRlirUk1KU",
+    "thumb": "https://img.youtube.com/vi/1oRlirUk1KU/hqdefault.jpg"
+  },
+  {
+    "title": "виньяса йога за 10 минут",
+    "url": "https://www.youtube.com/watch?v=F-beWdLFruw",
+    "category": "Виньяса",
+    "mood": "энергия",
+    "level": "Средний",
+    "duration": "10 минут",
+    "kind": "Активнее",
+    "note": "Короткий flow, чтобы собрать внимание и оживить всё тело.",
+    "id": "F-beWdLFruw",
+    "thumb": "https://img.youtube.com/vi/F-beWdLFruw/hqdefault.jpg"
+  },
+  {
+    "title": "йога-растяжка для прекрасного настроения",
+    "url": "https://www.youtube.com/watch?v=iJBcArFzHZE",
+    "category": "Растяжка",
+    "mood": "настрой",
+    "level": "Новичок",
+    "duration": "",
+    "kind": "Лёгкая",
+    "note": "Если хочется вытянуться, подышать и настроиться на хороший день.",
+    "id": "iJBcArFzHZE",
+    "thumb": "https://img.youtube.com/vi/iJBcArFzHZE/hqdefault.jpg"
+  },
+  {
+    "title": "йога сидя",
+    "url": "https://www.youtube.com/watch?v=UQEO3_VUY3c&t=2s",
+    "category": "Сидя",
+    "mood": "мягко",
+    "level": "Новичок",
+    "duration": "",
+    "kind": "Мягкая",
+    "note": "Подойдёт, когда нужен совсем щадящий формат, без включения ног.",
+    "id": "UQEO3_VUY3c",
+    "thumb": "https://img.youtube.com/vi/UQEO3_VUY3c/hqdefault.jpg"
+  },
+  {
+    "title": "женственная йога",
+    "url": "https://www.youtube.com/watch?v=zT_OpXGK76E",
+    "category": "Flow",
+    "mood": "настрой",
+    "level": "Новичок+",
+    "duration": "10 минут",
+    "kind": "Средняя",
+    "note": "Живой, плавный комплекс на всё тело, с мягкой динамикой.",
+    "id": "zT_OpXGK76E",
+    "thumb": "https://img.youtube.com/vi/zT_OpXGK76E/hqdefault.jpg"
+  },
+  {
+    "title": "полное йоговское дыхание",
+    "url": "https://www.youtube.com/watch?v=NdATnHdk5co",
+    "category": "Дыхание",
+    "mood": "спокойствие",
+    "level": "Новичок",
+    "duration": "",
+    "kind": "Дыхание",
+    "note": "Для моментов перегруза, тревоги и усталости, когда сначала нужно просто подышать.",
+    "id": "NdATnHdk5co",
+    "thumb": "https://img.youtube.com/vi/NdATnHdk5co/hqdefault.jpg"
+  },
+  {
+    "title": "помощь при болях в пояснице",
+    "url": "https://www.youtube.com/watch?v=P1bYA42zJrQ",
+    "category": "Поясница",
+    "mood": "мягко",
+    "level": "Новичок",
+    "duration": "",
+    "kind": "Мягкая",
+    "note": "Спокойная база для тех, кто много сидит и чувствует напряжение в пояснице.",
+    "id": "P1bYA42zJrQ",
+    "thumb": "https://img.youtube.com/vi/P1bYA42zJrQ/hqdefault.jpg"
+  },
+  {
+    "title": "экспресс йога практика на пресс",
+    "url": "https://www.youtube.com/watch?v=GWCBS7Srrl0",
+    "category": "Кор",
+    "mood": "энергия",
+    "level": "Средний",
+    "duration": "8 минут",
+    "kind": "Активнее",
+    "note": "Небольшая, но бодрая практика, когда хочется включить центр тела.",
+    "id": "GWCBS7Srrl0",
+    "thumb": "https://img.youtube.com/vi/GWCBS7Srrl0/hqdefault.jpg"
+  },
+  {
+    "title": "силовая йога для новичков",
+    "url": "https://www.youtube.com/watch?v=-yjZLT4Sq9Q",
+    "category": "Сила",
+    "mood": "энергия",
+    "level": "Новичок+",
+    "duration": "17 минут",
+    "kind": "Активнее",
+    "note": "Если хочется почувствовать работу тела, но не уходить в слишком жёсткий формат.",
+    "id": "-yjZLT4Sq9Q",
+    "thumb": "https://img.youtube.com/vi/-yjZLT4Sq9Q/hqdefault.jpg"
+  },
+  {
+    "title": "силовая практика йоги на спину",
+    "url": "https://www.youtube.com/watch?v=FEYQ0KAT5Yg&t=9s",
+    "category": "Спина",
+    "mood": "энергия",
+    "level": "Средний",
+    "duration": "15 минут",
+    "kind": "Активнее",
+    "note": "Практика на осанку и спину для тех дней, когда нужно собраться.",
+    "id": "FEYQ0KAT5Yg",
+    "thumb": "https://img.youtube.com/vi/FEYQ0KAT5Yg/hqdefault.jpg"
+  },
+  {
+    "title": "разминка перед медитацией",
+    "url": "https://www.youtube.com/watch?v=krQ3l5hrAnM",
+    "category": "Медитация",
+    "mood": "тревога",
+    "level": "Для всех",
+    "duration": "",
+    "kind": "Поддержка",
+    "note": "Подойдёт, когда ум шумит и хочется сначала немного разгрузить тело.",
+    "id": "krQ3l5hrAnM",
+    "thumb": "https://img.youtube.com/vi/krQ3l5hrAnM/hqdefault.jpg"
+  },
+  {
+    "title": "силовая йога | yoga flow system",
+    "url": "https://www.youtube.com/watch?v=CRNy7myRKB4",
+    "category": "Сила",
+    "mood": "энергия",
+    "level": "Новичок+",
+    "duration": "",
+    "kind": "Активнее",
+    "note": "Практика для тех, кому хочется чуть больше тонуса и включённости.",
+    "id": "CRNy7myRKB4",
+    "thumb": "https://img.youtube.com/vi/CRNy7myRKB4/hqdefault.jpg"
+  },
+  {
+    "title": "YOGAFLOW | 20 минут силовой йоги на кор",
+    "url": "https://www.youtube.com/watch?v=vxi9iRZrR_Q&t=110s",
+    "category": "Кор",
+    "mood": "энергия",
+    "level": "Новичок+",
+    "duration": "20 минут",
+    "kind": "Активнее",
+    "note": "Более плотный формат, если есть силы и время на полноценную короткую тренировку.",
+    "id": "vxi9iRZrR_Q",
+    "thumb": "https://img.youtube.com/vi/vxi9iRZrR_Q/hqdefault.jpg"
+  },
+  {
+    "title": "ЙОГА ОТ ТРЕВОГИ",
+    "url": "https://www.youtube.com/watch?v=0Et_JGvlJLM&t=68s",
+    "category": "Тревога",
+    "mood": "тревога",
+    "level": "Новичок+",
+    "duration": "",
+    "kind": "Поддержка",
+    "note": "Когда нужна не просто разминка, а ощущение устойчивости и внутренней опоры.",
+    "id": "0Et_JGvlJLM",
+    "thumb": "https://img.youtube.com/vi/0Et_JGvlJLM/hqdefault.jpg"
+  },
+  {
+    "title": "почему подросткам нужна медитация",
+    "url": "https://www.youtube.com/watch?v=ZQV9mMYMbKc",
+    "category": "Поддержка",
+    "mood": "тревога",
+    "level": "Видео",
+    "duration": "8:35",
+    "kind": "Разговор",
+    "note": "Нефизическая поддержка, если сейчас нужен не комплекс, а спокойный смысловой контекст.",
+    "id": "ZQV9mMYMbKc",
+    "thumb": "https://img.youtube.com/vi/ZQV9mMYMbKc/hqdefault.jpg"
+  },
+  {
+    "title": "йога для спины | уровень вода | 23 минуты",
+    "url": "https://www.youtube.com/watch?v=XnZZiwrbzx0&t=156s",
+    "category": "Спина",
+    "mood": "мягко",
+    "level": "Вода",
+    "duration": "23 минуты",
+    "kind": "Мягкая",
+    "note": "Более длинная и полноценная практика на спину, когда есть время заняться собой глубже.",
+    "id": "XnZZiwrbzx0",
+    "thumb": "https://img.youtube.com/vi/XnZZiwrbzx0/hqdefault.jpg"
+  }
+];
+
+    // Добавляй новые цитаты сюда в будущем.
+    // Формат:
+    // { text: "текст цитаты", source: "источник" }
+    const QUOTES = [
+  {
+    "text": "Ум предшествует всем состояниям.",
+    "source": "Дхаммапада 1"
+  },
+  {
+    "text": "Победи гнев негневом.",
+    "source": "Дхаммапада 223"
+  },
+  {
+    "text": "Лучше победить себя, чем тысячу раз других.",
+    "source": "Дхаммапада 103"
+  },
+  {
+    "text": "Спокойный ум приносит счастье.",
+    "source": "Дхаммапада, адаптировано"
+  },
+  {
+    "text": "Ненависть не прекращается ненавистью, только любовью.",
+    "source": "Дхаммапада 5"
+  },
+  {
+    "text": "Кто внимателен, тот не умирает духовно.",
+    "source": "Дхаммапада 21"
+  },
+  {
+    "text": "Тело следует за умом, как колесо за следом быка.",
+    "source": "Дхаммапада 1"
+  },
+  {
+    "text": "Йога, это успокоение движений ума.",
+    "source": "Йога-сутры 1.2"
+  },
+  {
+    "text": "Тогда видящий пребывает в своей истинной природе.",
+    "source": "Йога-сутры 1.3"
+  },
+  {
+    "text": "Практика становится устойчивой, когда совершается долго, непрерывно и с уважением.",
+    "source": "Йога-сутры 1.14"
+  },
+  {
+    "text": "Усилие расслабляется в бесконечном.",
+    "source": "Йога-сутры 2.47"
+  },
+  {
+    "text": "Из удовлетворённости рождается высшее счастье.",
+    "source": "Йога-сутры 2.42"
+  },
+  {
+    "text": "Равновесие и есть йога.",
+    "source": "Бхагавад-гита 2.48"
+  },
+  {
+    "text": "Пусть человек возвышает себя собой.",
+    "source": "Бхагавад-гита 6.5"
+  },
+  {
+    "text": "Где бы ни блуждал ум, мягко возвращай его обратно.",
+    "source": "Бхагавад-гита 6.26"
+  },
+  {
+    "text": "Покой приходит к тому, кто освободился от жадного цепляния.",
+    "source": "Бхагавад-гита, адаптировано"
+  },
+  {
+    "text": "Терпение, высшая аскеза.",
+    "source": "Буддийская традиция, адаптировано"
+  },
+  {
+    "text": "Внимательность, путь к бессмертному.",
+    "source": "Дхаммапада 21"
+  },
+  {
+    "text": "Как дождь не проникает в хорошо покрытый дом, так страсть не проникает в тренированный ум.",
+    "source": "Дхаммапада 14"
+  },
+  {
+    "text": "Кто укротил ум, тот находит покой.",
+    "source": "Буддийская традиция, адаптировано"
+  }
+];
+
+    const moodOptions = [
+      { key: "всё", label: "всё", icon: "☼" },
+      { key: "мягко", label: "мягко", icon: "ॐ" },
+      { key: "спокойствие", label: "спокойствие", icon: "☾" },
+      { key: "тревога", label: "тревога", icon: "☸" },
+      { key: "энергия", label: "энергия", icon: "✦" },
+      { key: "настрой", label: "настрой", icon: "♡" }
+    ];
+
+    const intensityOptions = ["любой", "мягкая", "лёгкая", "средняя", "активнее", "дыхание", "поддержка", "разговор"];
+    const durationOptions = ["любая", "быстро", "подольше"];
+    const categories = ["всё", ...Array.from(new Set(PRACTICES.map(item => item.category)))];
+
+    let activeMood = "всё";
+    let activeIntensity = "любой";
+    let activeDuration = "любая";
+    let activeCategory = "всё";
+    let rotation = 0;
+    let spinning = false;
+
+    const moodButtons = document.getElementById("moodButtons");
+    const intensityButtons = document.getElementById("intensityButtons");
+    const durationButtons = document.getElementById("durationButtons");
+    const categoryButtons = document.getElementById("categoryButtons");
+    const poolCount = document.getElementById("poolCount");
+    const spinner = document.getElementById("spinner");
+    const wheelCenter = document.getElementById("wheelCenter");
+    const spinBtn = document.getElementById("spinBtn");
+    const resultMedia = document.getElementById("resultMedia");
+    const resultBody = document.getElementById("resultBody");
+    const quoteText = document.getElementById("quoteText");
+    const quoteSource = document.getElementById("quoteSource");
+    const library = document.getElementById("library");
+    const libraryCount = document.getElementById("libraryCount");
+    const libraryGrid = document.getElementById("libraryGrid");
+    const libraryToggleLabel = document.getElementById("libraryToggleLabel");
+
+    function normalize(str) {
+      return (str || "").toString().trim().toLowerCase();
+    }
+
+    function pluralPractice(number) {
+      const n = Math.abs(number) % 100;
+      const n1 = n % 10;
+      if (n > 10 && n < 20) return "практик";
+      if (n1 > 1 && n1 < 5) return "практики";
+      if (n1 === 1) return "практика";
+      return "практик";
+    }
+
+    function parseDurationToMinutes(value) {
+      if (!value) return null;
+      const match = String(value).match(/(\d+)/);
+      if (!match) return null;
+      return parseInt(match[1], 10);
+    }
+
+    function isLongerPractice(item) {
+      const mins = parseDurationToMinutes(item.duration);
+      if (mins === null) return false;
+      return mins >= 15;
+    }
+
+    function isQuickPractice(item) {
+      const mins = parseDurationToMinutes(item.duration);
+      if (mins === null) return false;
+      return mins <= 10;
+    }
+
+    function matchesIntensity(item) {
+      if (activeIntensity === "любой") return true;
+      const kind = normalize(item.kind);
+      if (activeIntensity === "активнее") {
+        return ["активнее", "средняя"].includes(kind);
+      }
+      return kind === activeIntensity;
+    }
+
+    function matchesDuration(item) {
+      if (activeDuration === "любая") return true;
+      if (activeDuration === "быстро") return isQuickPractice(item);
+      if (activeDuration === "подольше") return isLongerPractice(item);
+      return true;
+    }
+
+    function getPool() {
+      return PRACTICES.filter(item => {
+        const moodOk = activeMood === "всё" || normalize(item.mood) === activeMood;
+        const intensityOk = matchesIntensity(item);
+        const durationOk = matchesDuration(item);
+        const categoryOk = activeCategory === "всё" || item.category === activeCategory;
+        return moodOk && intensityOk && durationOk && categoryOk;
+      });
+    }
+
+    function createPill({ label, active, icon, onClick }) {
+      const btn = document.createElement("button");
+      btn.className = "pill" + (active ? " active" : "");
+      btn.innerHTML = icon ? `<span class="icon">${icon}</span>${label}` : label;
+      btn.addEventListener("click", onClick);
+      return btn;
+    }
+
+    function createChip({ label, active, onClick }) {
+      const btn = document.createElement("button");
+      btn.className = "chip" + (active ? " active" : "");
+      btn.textContent = label;
+      btn.addEventListener("click", onClick);
+      return btn;
+    }
+
+    function renderMoodButtons() {
+      moodButtons.innerHTML = "";
+      moodOptions.forEach(item => {
+        moodButtons.appendChild(createPill({
+          label: item.label,
+          icon: item.icon,
+          active: activeMood === item.key,
+          onClick: () => {
+            activeMood = item.key;
+            renderAll();
+          }
+        }));
+      });
+    }
+
+    function renderIntensityButtons() {
+      intensityButtons.innerHTML = "";
+      intensityOptions.forEach(item => {
+        intensityButtons.appendChild(createPill({
+          label: item,
+          active: activeIntensity === item,
+          onClick: () => {
+            activeIntensity = item;
+            renderAll();
+          }
+        }));
+      });
+    }
+
+    function renderDurationButtons() {
+      durationButtons.innerHTML = "";
+      durationOptions.forEach(item => {
+        durationButtons.appendChild(createPill({
+          label: item,
+          active: activeDuration === item,
+          onClick: () => {
+            activeDuration = item;
+            renderAll();
+          }
+        }));
+      });
+    }
+
+    function renderCategoryButtons() {
+      categoryButtons.innerHTML = "";
+      categories.forEach(item => {
+        categoryButtons.appendChild(createChip({
+          label: item,
+          active: activeCategory === item,
+          onClick: () => {
+            activeCategory = item;
+            renderAll();
+          }
+        }));
+      });
+    }
+
+    function updatePoolCount() {
+      const pool = getPool();
+      poolCount.textContent = `${pool.length} ${pluralPractice(pool.length)}`;
+      libraryCount.textContent = `${PRACTICES.length} видео`;
+    }
+
+    function setRandomQuote() {
+      const quote = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+      if (!quote) return;
+      quoteText.textContent = quote.text;
+      quoteSource.textContent = quote.source;
+    }
+
+    function uniqueTags(item) {
+      const mood = item.mood ? item.mood : "";
+      const kind = item.kind ? item.kind : "";
+      const kindLooksDuplicate =
+        (normalize(mood) === "мягко" && normalize(kind) === "мягкая") ||
+        (normalize(mood) === "энергия" && normalize(kind) === "активнее") ||
+        (normalize(mood) === "спокойствие" && normalize(kind) === "мягкая");
+
+      const tags = [
+        { text: item.category, cls: "tag-category" },
+        { text: item.mood, cls: "tag-mood" },
+        { text: item.level, cls: "tag-level" },
+        { text: item.duration, cls: "tag-duration" },
+      ];
+
+      if (!kindLooksDuplicate && item.kind) {
+        tags.push({ text: item.kind, cls: "tag-kind" });
+      }
+
+      const seen = new Set();
+      return tags.filter(tag => {
+        const value = normalize(tag.text);
+        if (!value || seen.has(value)) return false;
+        seen.add(value);
+        return true;
+      });
+    }
+
+    function resultTitleClass(title) {
+      const len = title.length;
+      if (len > 38) return "result-title tiny";
+      if (len > 24) return "result-title small";
+      return "result-title";
+    }
+
+    function renderResult(item) {
+      resultMedia.innerHTML = `<img src="${item.thumb}" alt="">`;
+
+      const tags = uniqueTags(item).map(tag =>
+        `<span class="tag ${tag.cls}">${tag.text}</span>`
+      ).join("");
+
+      resultBody.innerHTML = `
+        <div class="result-kicker">сегодняшняя практика</div>
+        <h2 class="${resultTitleClass(item.title)}">${item.title}</h2>
+        <div class="tag-row">${tags}</div>
+        <p class="result-copy">${item.note}</p>
+        <a class="btn result-cta" href="${item.url}" target="_blank" rel="noopener noreferrer">открыть видео</a>
+      `;
+
+      wheelCenter.innerHTML = `
+        <div>
+          <div class="wheel-om">ॐ</div>
+          <div class="wheel-state">твой выбор</div>
+        </div>
+      `;
+
+      setRandomQuote();
+    }
+
+    function showEmptyResult() {
+      resultMedia.innerHTML = `
+        <div class="placeholder">
+          <div>
+            <div class="om">ॐ</div>
+            <p>под такой фильтр сейчас<br>ничего не нашлось</p>
+          </div>
+        </div>
+      `;
+
+      resultBody.innerHTML = `
+        <div class="result-kicker">ничего не выпало</div>
+        <h2 class="result-title small">попробуй другой фильтр</h2>
+        <p class="result-copy">Можно переключиться на “всё”, выбрать более мягкий режим или убрать ограничение по типу практики.</p>
+      `;
+
+      wheelCenter.innerHTML = `
+        <div>
+          <div class="wheel-om">ॐ</div>
+          <div class="wheel-state">спокойно</div>
+        </div>
+      `;
+    }
+
+    function pickRandomPractice() {
+      const pool = getPool();
+      if (!pool.length) return null;
+      return pool[Math.floor(Math.random() * pool.length)];
+    }
+
+    function spinWheel() {
+      if (spinning) return;
+      const selected = pickRandomPractice();
+
+      if (!selected) {
+        showEmptyResult();
+        return;
+      }
+
+      spinning = true;
+      spinBtn.disabled = true;
+      spinBtn.textContent = "крутим...";
+
+      wheelCenter.innerHTML = `
+        <div>
+          <div class="wheel-om">ॐ</div>
+          <div class="wheel-state">дыши ровно</div>
+        </div>
+      `;
+
+      const extraTurns = 5 + Math.floor(Math.random() * 4);
+      const randomOffset = Math.floor(Math.random() * 360);
+      rotation += extraTurns * 360 + randomOffset;
+      spinner.style.transform = `rotate(${rotation}deg)`;
+
+      window.setTimeout(() => {
+        renderResult(selected);
+        spinning = false;
+        spinBtn.disabled = false;
+        spinBtn.textContent = "крутить ещё";
+      }, 4200);
+    }
+
+    function renderLibrary() {
+      libraryGrid.innerHTML = "";
+
+      PRACTICES.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "video-card";
+        const miniTags = [
+          item.category ? `<span class="mini-tag category">${item.category}</span>` : "",
+          item.level ? `<span class="mini-tag level">${item.level}</span>` : "",
+          item.duration ? `<span class="mini-tag duration">${item.duration}</span>` : "",
+          item.kind ? `<span class="mini-tag kind">${item.kind}</span>` : ""
+        ].filter(Boolean).join("");
+
+        card.innerHTML = `
+          <a href="${item.url}" target="_blank" rel="noopener noreferrer">
+            <img src="${item.thumb}" alt="">
+          </a>
+          <div class="video-info">
+            <h3 class="video-title">${item.title}</h3>
+            <div class="mini-tags">${miniTags}</div>
+          </div>
+        `;
+        libraryGrid.appendChild(card);
+      });
+    }
+
+    function updateLibraryToggleLabel() {
+      libraryToggleLabel.textContent = library.open ? "свернуть" : "развернуть";
+    }
+
+    function renderAll() {
+      renderMoodButtons();
+      renderIntensityButtons();
+      renderDurationButtons();
+      renderCategoryButtons();
+      updatePoolCount();
+    }
+
+    spinBtn.addEventListener("click", spinWheel);
+
+    library.addEventListener("toggle", updateLibraryToggleLabel);
+
+    setRandomQuote();
+    renderAll();
+    renderLibrary();
+    updateLibraryToggleLabel();
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+@font-face {
+  font-family: 'Young Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url({{asset:assets/fonts/font-woff2-01.woff2}}) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Young Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url({{asset:assets/fonts/font-woff2-02.woff2}}) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Lantern: the whole site after dark. The pixel scenes already glow; let them carry the warmth. */
+:root{
+  --bg:#111814; --bg-2:#151e18; --surface:#1a241d; --surface-2:#223027;
+  --ink:#eee5d0; --muted:#a8ac98; --line:#eee5d01c; --line-strong:#eee5d036;
+  --accent:#f0a94b; --accent-ink:#1b1306;
+  --bad:#552a1f; --bad-ink:#ffc4a8; --ok:#2b4530; --ok-ink:#d8eec8;
+  --dark:#0b110d; --dark-2:#070b08; --on-dark:#eee5d0; --on-dark-muted:#a8ac98;
+  --display:'Young Serif',Georgia,serif; --display-tracking:-.025em; --display-leading:1.04;
+  --tilt:.5; --radius-lg:10px; --radius:6px;
+}
+body{background:var(--bg)}
+::selection{background:var(--accent);color:var(--accent-ink)}
+h1{letter-spacing:-.035em}
+.opening h1{line-height:1.02}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{background:#ffc677;border-color:#ffc677;color:var(--accent-ink);box-shadow:0 0 0 6px #f0a94b22,0 10px 40px -6px #f0a94b80}
+.btn{transition:background-color .3s var(--ease-out),color .3s,border-color .3s,transform .2s var(--ease-out),box-shadow .5s var(--ease-out)}
+.kicker{color:var(--accent)}
+.passing-copy .step{color:var(--accent)}
+.room-art{filter:saturate(1.05)}
+
+/* Panels glow faintly, like paper under a lamp. */
+.traveller,.api-paper{box-shadow:0 0 0 1px #00000040,0 30px 60px -24px #000c,0 0 80px -30px #f0a94b40}
+.traveller.solved{background:var(--ok);box-shadow:0 0 0 1px #00000040,0 30px 60px -24px #000c,0 0 120px -20px #9fd38a55}
+.seal circle{fill:#d8eec8}.seal path{stroke:#2b4530}
+.flying-token{box-shadow:0 0 30px -6px #f0a94b70}
+.journey-progress button:after{box-shadow:0 0 10px #f0a94b}
+
+/* Heading words light up as they arrive. */
+.split .w>span{text-shadow:0 0 28px #f0a94bcc;transition:transform 1s var(--ease-out),text-shadow 1.8s var(--ease-out);transition-delay:calc(var(--wi,0) * 45ms + var(--i,0) * 80ms)}
+.in .split .w>span,.split.in .w>span{text-shadow:0 0 0 #f0a94b00}
+
+/* Lab on dark */
+#lab-light rect{fill:#18302e}
+#lab-light text{fill:var(--ink)}
+#light-out{stroke:#9fd3c7}
+.lab{background:var(--surface)}
+.wave-legend span:nth-child(2):before{background:#8f9a7a}
+
+/* Projects: cards become lamp-lit tiles instead of pastel paper */
+.personal-world:before{background:linear-gradient(var(--dark) 0%,#0b110de6 30%,#0b110df5 85%),var(--forest) center/cover}
+.projects-head,.garden{background:var(--surface);color:var(--ink)}
+.garden-visual{background:#24352a}
+.wheel-card{background:#231d18}.music-card{background:#201c22}.writing-card{background:#1a231c}
+.project-card{color:var(--ink);border:1px solid var(--line)}
+.project-card:hover{border-color:#f0a94b55;box-shadow:0 20px 60px -30px #f0a94b60}
+.wheel-small:after{background:var(--surface)}
+.writing-mark{color:#6f7f62}
+.phone{border-color:#0a0f0c}
+.project-tags li{background:var(--surface-2)}
+
+.contact{background:radial-gradient(120% 80% at 10% 0%,#1d2a20 0%,var(--dark) 60%)}
+.runner-track{background:#1d2a21;color:var(--ink)}
+.runner-ground{background:#4f6150}
+.runner-ground:after{background:repeating-linear-gradient(90deg,#33443a 0 10px,transparent 10px 36px)}
+.runner-obstacle{color:var(--accent);text-shadow:0 0 12px #f0a94b90}
+.runner-prompt{background:#1d2a21c0}
+.runner-score{color:var(--accent)}
+
+/* The lantern: a soft warm light that follows the pointer. */
+.lantern-light{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;border-radius:50%;pointer-events:none;z-index:30;background:radial-gradient(circle,#f5b75a1f 0%,#f5b75a0d 35%,transparent 68%);mix-blend-mode:screen;opacity:0;transition:opacity .6s var(--ease-out);will-change:transform}
+.lantern-light.on{opacity:1}
+@media(hover:none),(prefers-reduced-motion:reduce){.lantern-light{display:none}}
+/* The art has a cream backdrop on its left; on dark, mask past it. */
+.room-art{-webkit-mask-image:linear-gradient(90deg,transparent 36%,#000 56%),linear-gradient(0deg,transparent 8%,#000 32%);mask-image:linear-gradient(90deg,transparent 36%,#000 56%),linear-gradient(0deg,transparent 8%,#000 32%)}
+.projects-head .art{-webkit-mask-image:linear-gradient(90deg,transparent 40%,#000 60%);mask-image:linear-gradient(90deg,transparent 40%,#000 60%)}
+@media(max-width:720px){.projects-head .art{-webkit-mask-image:linear-gradient(90deg,transparent 30%,#000 55%),linear-gradient(180deg,transparent,#000 30%);mask-image:linear-gradient(90deg,transparent 30%,#000 55%),linear-gradient(180deg,transparent,#000 30%);-webkit-mask-composite:source-in;mask-composite:intersect}}
+
+
+.lantern-light{display:block}

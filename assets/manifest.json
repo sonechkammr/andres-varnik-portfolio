@@ -1,0 +1,206 @@
+[
+  {
+    "path": "assets/favicon.svg",
+    "mime": "image/svg+xml",
+    "sha256": "8616676e9cec852b44c3c194dce1c1a2d536ee209a9b81661786bebd78f28466",
+    "bytes": 199
+  },
+  {
+    "path": "assets/fonts/font-ttf-01.ttf",
+    "mime": "font/ttf",
+    "sha256": "c97fcd822f825e9e731867b650a39ee678b609bead29385e320171b573ec0910",
+    "bytes": 44784
+  },
+  {
+    "path": "assets/fonts/font-ttf-02.ttf",
+    "mime": "font/ttf",
+    "sha256": "dd60d0861a3efd540efc3f2f85e7a7fd69a7ece7eadf44aaffa5fc5c86adda0e",
+    "bytes": 45308
+  },
+  {
+    "path": "assets/fonts/font-ttf-03.ttf",
+    "mime": "font/ttf",
+    "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+    "bytes": 48280
+  },
+  {
+    "path": "assets/fonts/font-ttf-04.ttf",
+    "mime": "font/ttf",
+    "sha256": "376427b5322148d8de1e03f263bcca4935a2d60ba71d9f94f4947ab664c711ae",
+    "bytes": 48308
+  },
+  {
+    "path": "assets/fonts/font-ttf-05.ttf",
+    "mime": "font/ttf",
+    "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+    "bytes": 48280
+  },
+  {
+    "path": "assets/fonts/font-ttf-06.ttf",
+    "mime": "font/ttf",
+    "sha256": "2a8e7f713ee79fbccdef3cef5c787aff47580299f7da60144961e7db2ec08211",
+    "bytes": 48200
+  },
+  {
+    "path": "assets/fonts/font-ttf-07.ttf",
+    "mime": "font/ttf",
+    "sha256": "199b2a7deefd8d7d9bae05d34902c4c6486bd11b8e5d1a22c0cea8862943a5a1",
+    "bytes": 91588
+  },
+  {
+    "path": "assets/illustrations/pixel-scene-01.webp",
+    "mime": "image/webp",
+    "sha256": "6586f73ab915ed5f4b41f55652ae6f13432d2f5c2b038b091f398065b4e83f16",
+    "bytes": 575064
+  },
+  {
+    "path": "assets/illustrations/pixel-scene-02.webp",
+    "mime": "image/webp",
+    "sha256": "e38a1f0c14e4e6fbd2d715b450182f84d17641932fbcee4cabac36e0c2a0cd3f",
+    "bytes": 291004
+  },
+  {
+    "path": "assets/fonts/font-woff2-01.woff2",
+    "mime": "font/woff2",
+    "sha256": "3d956f419542b44a9b33e7143923e86a9b0ae9b6e98f220e496b0160180750b0",
+    "bytes": 11836
+  },
+  {
+    "path": "assets/fonts/font-woff2-02.woff2",
+    "mime": "font/woff2",
+    "sha256": "a46a84bfaa83dea2fa2d034dbf9b8f119a0872d78d28aa2cfe06ced9c1d2ef9e",
+    "bytes": 18520
+  },
+  {
+    "path": "assets/cv/andres-varnik-cv-en.pdf",
+    "mime": "application/pdf",
+    "sha256": "9ac88c0659fda81a0a633ef0b1deb2efc87a057624d1f990967d8d1252132d72",
+    "bytes": 70969
+  },
+  {
+    "path": "assets/illustrations/pixel-scene-03.webp",
+    "mime": "image/webp",
+    "sha256": "850d183a5c0d748bfc5fac5516f7c5a8608640dde24f9056a6b4d220aba33c04",
+    "bytes": 318790
+  },
+  {
+    "path": "assets/illustrations/pixel-scene-04.webp",
+    "mime": "image/webp",
+    "sha256": "c02e9f85c3c00ffb135ee2bd3fa725bd336978def214ea8e81106586c7967e1f",
+    "bytes": 218920
+  },
+  {
+    "path": "assets/illustrations/pixel-scene-05.webp",
+    "mime": "image/webp",
+    "sha256": "c014442b8aa7a36aa53222ebe4ea0e3a90671ba915179088c9e8c51998b1b2bb",
+    "bytes": 219292
+  },
+  {
+    "path": "assets/illustrations/pixel-scene-06.webp",
+    "mime": "image/webp",
+    "sha256": "f6578b132502b11a082982d2885399fd459251e99d216ae9b995f449d9cadf9d",
+    "bytes": 145300
+  },
+  {
+    "path": "assets/illustrations/pixel-scene-07.webp",
+    "mime": "image/webp",
+    "sha256": "bc29aafafdf93ab80d83b504f90cb2bcde899ac37bae88f23f2008b11445fa71",
+    "bytes": 146480
+  },
+  {
+    "path": "assets/photography/photograph-01.jpg",
+    "mime": "image/jpeg",
+    "sha256": "462ee3d1563acbc1c3948abec88f6dad4814afb8a391cf8c1296a800ad99acb3",
+    "bytes": 102032
+  },
+  {
+    "path": "assets/photography/photograph-02.jpg",
+    "mime": "image/jpeg",
+    "sha256": "d03a551bc6c04802ddce5a2c96232f6cc5e11d8a2605d6c9f08f40400aae51c7",
+    "bytes": 285115
+  },
+  {
+    "path": "assets/photography/photograph-03.jpg",
+    "mime": "image/jpeg",
+    "sha256": "0f2fc872054fb400620c87ab69f9b78eec82b3fc44d56697a15b04c0a59a14a0",
+    "bytes": 170336
+  },
+  {
+    "path": "assets/photography/photograph-04.jpg",
+    "mime": "image/jpeg",
+    "sha256": "faa356d995c3ee8449ef04eb30237e5bb45437ef4bb7c151f361b63c10c53c0b",
+    "bytes": 67784
+  },
+  {
+    "path": "assets/photography/photograph-05.jpg",
+    "mime": "image/jpeg",
+    "sha256": "df3f23a23d4ff73a8cddaff75ced784e50902aa403084c935fad62649531ef91",
+    "bytes": 91394
+  },
+  {
+    "path": "assets/photography/photograph-06.jpg",
+    "mime": "image/jpeg",
+    "sha256": "108c5d1d348250548f51f0904cdb0c35e809e78f2f764a529b295cd41fd4e11c",
+    "bytes": 348982
+  },
+  {
+    "path": "assets/photography/photograph-07.jpg",
+    "mime": "image/jpeg",
+    "sha256": "173fd8f4d73808ebdfe5e574206ed78029428db5c56241b64716dae5faeef0f7",
+    "bytes": 192419
+  },
+  {
+    "path": "assets/photography/photograph-08.jpg",
+    "mime": "image/jpeg",
+    "sha256": "046f9abd55f366c2ea7080af8690d8c39f29eb121538bc935a96cf363f6a436a",
+    "bytes": 74728
+  },
+  {
+    "path": "assets/photography/photograph-09.jpg",
+    "mime": "image/jpeg",
+    "sha256": "08ca13d56bbe3479f40fe4eaa06c3d6e8ff36a957d2d1ef069ca9fc992b7a452",
+    "bytes": 97237
+  },
+  {
+    "path": "assets/photography/photograph-10.jpg",
+    "mime": "image/jpeg",
+    "sha256": "e629452945ea106d01dc12c4cfaec90d2368940883f20be2346cdbcfd182234a",
+    "bytes": 167700
+  },
+  {
+    "path": "assets/photography/photograph-11.jpg",
+    "mime": "image/jpeg",
+    "sha256": "cf01d9f1d694b2f0117dbe7235c4f830a8771c91b090dce20c7d4e2e54558d97",
+    "bytes": 304233
+  },
+  {
+    "path": "assets/photography/photograph-12.jpg",
+    "mime": "image/jpeg",
+    "sha256": "65e57dbe66d9434be60b7994f1751b1d3ee0b9e65be642b82981d43c04f1b24e",
+    "bytes": 98370
+  },
+  {
+    "path": "assets/photography/photograph-13.jpg",
+    "mime": "image/jpeg",
+    "sha256": "4ab488830669f2139dd3133193931e3cac608e4c38ffa0f143b28f6639b62a77",
+    "bytes": 103637
+  },
+  {
+    "path": "assets/photography/photograph-14.jpg",
+    "mime": "image/jpeg",
+    "sha256": "61a78765c2f9d2e289562e136307306836a86bf868803f2f97f6eacf4b432b4a",
+    "bytes": 183789
+  },
+  {
+    "path": "assets/photography/photograph-15.jpg",
+    "mime": "image/jpeg",
+    "sha256": "d2f4d676ccd2d814d9a56c0d39134b01dc4c3a9438a22d63f1310101525b8ebd",
+    "bytes": 62481
+  },
+  {
+    "path": "assets/illustrations/pixel-scene-08.webp",
+    "mime": "image/webp",
+    "sha256": "f8174d31e5d4b5db3432ee13d2bbf973e3e14a5a91b9ca440f78f7ceefef968a",
+    "bytes": 131030
+  }
+]
