@@ -1,10 +1,12 @@
 {
   "name": "andres-varnik-portfolio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "A personal portfolio told through SQL diagnostics, warm pixel art and a mechanical photography carousel.",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",

@@ -1,3 +1,18 @@
+# Portfolio v1.0.1 — Motion & Typography Fixes
+
+- Replaced the projector's separate motion phases with one continuous rail and smooth quintic timing.
+- Corrected rotation direction: a card moving left turns its left edge away; the incoming right card unfolds towards the viewer.
+- Preserved real front/back face rendering by moving opacity off the 3D parent and removing changing z-index values.
+- Shared Young Serif font files and heading metrics between the paper and lantern modes.
+- Shortened long Estonian labels, bounded text beside illustrations and improved word wrapping.
+- Added a tablet navigation breakpoint and extra small-screen adjustments.
+- Added regression checks for rotation direction, monotonic motion, symmetry, timing and shared typography.
+- Reviewed English/Estonian layouts at 320, 390, 1,024 and 1,440 CSS pixels; physical-device and formal accessibility testing remain outside this release.
+
+Download `Andres-Varnik-Portfolio.html` to open the complete portfolio locally, or `Andres-Varnik-Portfolio-Source.zip` to edit and rebuild it.
+
+---
+
 # Portfolio v1.0.0 — Lantern & Photography
 
 The first packaged GitHub release of Andres Värnik's interactive portfolio.

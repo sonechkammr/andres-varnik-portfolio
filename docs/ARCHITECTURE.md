@@ -34,7 +34,7 @@ The resolved state identifies the missing mapping, the correction to warehouse 7
 
 ## Theme and translation
 
-The lantern stylesheet is enabled or disabled as a unit. The button updates its pressed state and accessible name. English is the starting language unless a saved preference is available. Estonian copy is stored in `src/translations.et.json`; the gallery owns its short dynamic labels and captions.
+Young Serif font faces and typography are shared by both visual modes. The lantern stylesheet changes the palette and decoration without overriding the heading font or its metrics. The lantern stylesheet is enabled or disabled as a unit. The button updates its pressed state and accessible name. English is the starting language unless a saved preference is available. Estonian copy is stored in `src/translations.et.json`; the gallery owns its short dynamic labels and captions.
 
 Translation preserves SQL and code examples. The portfolio stores interface choices in local storage and tolerates storage being unavailable. The language switch does not translate the downloaded English CV, photographs, original app screenshots or linked external projects.
 
@@ -42,16 +42,17 @@ Translation preserves SQL and code examples. The portfolio stores interface choi
 
 Each mounted photograph has a front, a back and thin side edges. CSS perspective and `translate3d`/`rotateY` provide the depth. `requestAnimationFrame` calculates each pose from elapsed time rather than frame count.
 
-For an ordinary 1,400 ms forward turn:
+For an ordinary 1,400 ms forward turn, all cards follow one continuous rail. A shared quintic ease controls the position, with zero velocity and acceleration at both ends. Position, depth and angle are calculated from the same distance parameter; no card reverses its rotation halfway through the turn.
 
 | Progress | Outgoing frame | Incoming frame |
 | --- | --- | --- |
-| 0–33% | Accelerates into depth and towards its edge. | Moves from its side slot to an edge-on position deeper inside. |
-| 33–46% | Reaches about 94° of rotation. | Starts unfolding towards the front. |
-| 46–84% | Returns to the side of the deck. | Moves forward, decelerates and becomes face-on. |
-| 84–100% | Settles in its side slot. | Receives a small damped rotational adjustment. |
+| Start | Face-on at the front. | At the right side, nearly edge-on with its left edge towards the viewer. |
+| Middle | Moves left and back; its left edge recedes. | Moves left and forward, opening towards the viewer. |
+| End | Nearly edge-on on the left, with its right edge visible. | Face-on at the front, with a restrained settling rotation. |
 
-Cubic easing shapes the acceleration and deceleration. The final adjustment uses a decaying sine with a maximum scale of 1.3°; it is not a position spring. Shading changes with rotation. Reverse navigation mirrors the path.
+Reverse navigation mirrors the path. A perspective correction keeps the resting side frames just on the front-facing side of edge-on. The small final rotational adjustment is under one degree, has smooth endpoints and is suppressed during queued turns. It is not a position spring.
+
+The card parent remains opaque and retains its 3D context. Alpha is applied to individual faces and edges, avoiding Chromium's flattening of a parent with fractional opacity. Depth sorting is handled by the 3D scene rather than a changing per-frame z-index.
 
 A swipe must exceed 40 pixels and be predominantly horizontal. Distance and speed select one to five queued turns. A multi-frame sequence begins with a 740 ms turn and increases towards 1,400 ms for the last. The queue is bounded. Vertical touch scrolling remains available.
 

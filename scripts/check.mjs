@@ -29,3 +29,4 @@ const wheel = await readFile(path.join(root, 'assets/projects/practice-wheel.htm
 for (const [index, match] of [...wheel.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)].entries()) new Script(match[1], { filename: `practice-wheel-${index}.js` });
 console.log(`Passed: ${scripts.length} scripts, ${ids.length} unique IDs, 15 photos, ${manifest.length} intact assets and the embedded Practice Wheel.`);
 console.log('These static checks do not replace browser, touch or screen-reader testing.');
+await import('./check-motion.mjs');

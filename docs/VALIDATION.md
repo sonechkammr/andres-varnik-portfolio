@@ -18,12 +18,14 @@ The checker verifies:
 - English as the default document language.
 - Absence of unresolved source markers and machine-specific file references.
 - SHA-256 integrity of the assets listed in the manifest.
+- Projector direction, monotonic movement, symmetry and smooth timing endpoints using the actual motion model.
+- Shared Young Serif definitions without a dark-theme font override.
 
 The checks are static. They do not claim to measure animation smoothness, accessibility conformance or image composition.
 
 ## Browser checks performed during development
 
-The integrated portfolio was inspected in the in-app browser at narrow and wide viewport sizes, approximately 384 and 1,440 CSS pixels wide. The following were exercised:
+The integrated portfolio was inspected in the in-app browser at narrow and wide viewport sizes, including 320, 390, 1,024 and 1,440 CSS pixels wide during the v1.0.1 layout review. The following were exercised:
 
 | Check | Observed result |
 | --- | --- |
@@ -32,7 +34,8 @@ The integrated portfolio was inspected in the in-app browser at narrow and wide 
 | Enlarged viewer | The central card opened, viewer navigation updated the image and counter, and the close button returned to the deck. |
 | Sound control | The optional sound state toggled from off to on. Perceived loudness was not measured. |
 | Slideshow | The photo counter advanced automatically while playback was enabled. |
-| EN / ET and lantern | Gallery copy, navigation labels and theme updated correctly. |
+| EN / ET and lantern | Gallery copy, navigation labels and theme updated correctly. Estonian heading font, size and measured height matched across both themes. |
+| Estonian layout | No overflowing heading words were found at the reviewed widths. On mobile, project copy ended above its illustration. The tablet menu opened and closed correctly. |
 | Responsive layout | No document-width overflow was observed at the inspected widths. |
 | JavaScript console | No error entries were observed during the gallery checks. |
 
