@@ -5,7 +5,7 @@ A keyboard-and-touch Canvas game hidden in the contact section. It starts as a s
 ## Sequence
 
 1. Automatic monochrome runner: Space / Up / click jumps.
-2. Colour pixel platformer: A/D or arrows move; Space / Up / W jumps. Collect the glowing lantern from the raised platforms before the exit opens.
+2. Colour pixel platformer: A/D or arrows move; Space / Up / W jumps; Down / S fast-falls. Collect the glowing lantern from the raised platforms before the exit opens.
 3. Top-down arena: WASD / arrows move, mouse aims, holding the left button casts a sustained cone of light. Ten creatures arrive over time. Their bodies shrink as light drains their health; contact costs a heart. Clear the room and enter its north doorway.
 4. A stylized perspective sanctuary: move forward with W / Up to the lit doorway. A partly concealed side door then offers a music-video Easter egg as an explicit external link. This is a perspective Canvas scene, not a 3D shooter.
 
@@ -22,8 +22,16 @@ A keyboard-and-touch Canvas game hidden in the contact section. It starts as a s
 - Control labels and hints switch between English and Estonian. Safe-area spacing and dynamic viewport height keep the exit and controls reachable on phones.
 - Play length depends on movement, aiming and retries; it has not been timed through a human playtest to certify the proposed 90–120 seconds.
 
+## Movement and art direction
+
+- Ground speed ramps to 230 units/s over about 0.21 seconds. Release brakes over about 0.16 seconds; reversing first cancels the previous momentum. Air control is lighter than ground control.
+- Jump launch is immediate. Gravity eases near the apex, then becomes stronger on descent. Holding Down/S (including the touch D-pad) pulls the player down, with a bounded fall speed.
+- Edge grace lasts 100 ms and a jump pressed up to 120 ms before landing is buffered. These make platforming forgiving without delaying input.
+- Footfall animation follows travelled distance. Knees/shoulders absorb landings; hands and hair lag the body slightly. Landing dust is brief and restrained. Arena and final-scene movement also accelerate and brake.
+- A shared muted forest palette, individually placed sprite pixels, asymmetric branches, worn stone, moss and lanterns connect the eras. The character retains glasses, long hair, striped dark clothing and the purple hood. Arena creatures are pixel moths. No external generated art or borrowed game sprites were added.
+
 ## Implementation and checks
 
 `src/scripts/easter-egg.js` owns the scene machine, fixed logical 960×540 drawing area, frame-time physics, platform collisions, beam damage, audio and input. `src/styles/easter-egg.css` owns the embedded/expanded states. Graphics are code-drawn with a consistent long-haired, glasses-and-striped-hoodie character; there are no copied game sprites.
 
-`node scripts/check-arcade.mjs` executes the actual engine in an isolated mock DOM with a test-only hook that is never included in the built site. It checks the first doorway, heart depletion, physical jumps to collect the lantern, arena transition, sustained beam damage, the final exit, secret availability and reset. These engine checks do not replace a complete keyboard-and-mouse playthrough by a person. Engine checks also exercise simultaneous direction/jump pointers, cancellation, lamp collection using touch controls, lantern damage without a mouse, final-scene touch input and portrait/landscape camera bounds. Browser checks cover startup, touch-control holding, full-width portrait/landscape layouts, pause/close and error logs; physical-device multi-touch testing remains separate.
+`node scripts/check-arcade.mjs` executes the actual engine in an isolated mock DOM with a test-only hook that is never included in the built site. It checks the first doorway, heart depletion, physical jumps to collect the lantern, arena transition, sustained beam damage, the final exit, secret availability and reset. These engine checks do not replace a complete keyboard-and-mouse playthrough by a person. Engine checks also exercise simultaneous direction/jump pointers, cancellation, lamp collection using touch controls, lantern damage without a mouse, final-scene touch input and portrait/landscape camera bounds. Physics checks verify acceleration, release braking, reversal momentum, apex time, fast-fall, buffered/late jumps and comparable jump height at 60/120 Hz. Browser checks cover startup, touch-control holding, full-width portrait/landscape layouts, pause/close and error logs; physical-device multi-touch testing remains separate.
