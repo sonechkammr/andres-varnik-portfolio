@@ -5,6 +5,11 @@
 @media(prefers-reduced-motion:reduce){html.mode-change body,.lantern-switch,.lantern-switch .flame{transition:none}}
 html[data-theme=lantern] .lantern-light{display:block}
 .topbar:focus-within{transform:translateY(0)!important}
+.room-art{object-fit:contain;object-position:right top;max-height:calc(100% - 280px)}
+.traveller{z-index:8}
+.room-art-dark{display:none}
+html[data-theme=lantern] .room-art:not(.room-art-dark){opacity:0!important}
+html[data-theme=lantern] .room-art-dark{display:block;-webkit-mask-image:none;mask-image:none;filter:none}
 
 /* Shared type and bounded copy areas keep EN/ET and both themes in one layout. */
 .opening-copy,.explain-copy,.garden-copy,.project-card,.pg-head>div,.about>div{min-width:0}
@@ -30,6 +35,7 @@ h1,h2,h3{overflow-wrap:break-word}
   .topbar nav.open{display:flex}
 }
 @media(max-width:720px){
+  .room-art{max-height:none}
   .opening-copy{width:100%}
   .passing-copy,.copy-data,.copy-query{width:88%;max-width:none}
   .passing-copy h2{font-size:clamp(28px,7.6vw,36px)}

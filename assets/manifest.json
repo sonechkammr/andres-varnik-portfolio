@@ -202,5 +202,11 @@
     "mime": "image/webp",
     "sha256": "f8174d31e5d4b5db3432ee13d2bbf973e3e14a5a91b9ca440f78f7ceefef968a",
     "bytes": 131030
+  },
+  {
+    "path": "assets/illustrations/hero-ivy-transparent.webp",
+    "mime": "image/webp",
+    "sha256": "ac0f9ff7067c63a9a13d7aa34ee11eaf5344eaad466dd2decace9f6ecab9445a",
+    "bytes": 1481018
   }
 ]

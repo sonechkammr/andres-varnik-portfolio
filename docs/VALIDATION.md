@@ -77,3 +77,9 @@ These are ideas, not completed features or commitments:
 ## v2.1 photo-book merge review
 
 The supplied photo book replaced the older projector. Browser checks traversed all fifteen photos to the end page, confirmed the disabled forward button, queued three rapid backward turns, switched from a spread to one page while retaining the current photo, changed to Estonian through the mobile menu and changed visual themes. No heading overflow or console errors were observed at the inspected phone width. The revised API panel showed its POST/PATCH/POST request and response sequence. The arcade source and stylesheet were verified unchanged against v2.0.0; its engine tests continue to pass. Previous projector-specific observations above describe the earlier implementation, not the current book.
+
+## Introduction and verification scroll update (2026-10-30)
+
+The greeting now precedes the investigation and is the page's H1; the case heading is H2. Body copy has stronger theme contrast and larger text. A transparent image sibling preserves the ivy in dark mode; the original remains in light mode.
+
+The final chapter has a continuous scroll interval: window expansion, checkmark stroke, title, and three successive evidence rows. `check-story.mjs` exercises the actual renderer at intermediate positions and in reverse. Browser checks covered partial progress, row staging, final desktop layout, both image themes, and the 390 px Estonian result without overflow. Layout offsets used for the first traveller ignore animation transforms, and font readiness triggers measurement to keep the actions clear.

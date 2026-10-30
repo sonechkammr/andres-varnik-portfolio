@@ -32,6 +32,7 @@ console.log('These static checks do not replace browser, touch or screen-reader 
 
 
 await import('./check-arcade.mjs');
+await import('./check-story.mjs');
 
 assert(html.includes('id="pb-photos"'), 'Photo-book source template is missing.');
 assert(html.includes('PATCH') && html.includes('202'), 'The revised sandbox API sequence is missing.');

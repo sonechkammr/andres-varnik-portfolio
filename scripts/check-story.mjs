@@ -1,0 +1,23 @@
+import {readFile} from 'node:fs/promises';
+import {runInNewContext} from 'node:vm';
+import assert from 'node:assert/strict';
+const source=await readFile(new URL('../src/scripts/main.js',import.meta.url),'utf8');
+const nodes=new Map();
+function node(){const vars=new Map(),classes=new Set();return {style:{setProperty:(k,v)=>vars.set(k,v)},vars,dataset:{},textContent:'',setAttribute(){},classList:{contains:k=>classes.has(k),toggle:(k,on)=>on?classes.add(k):classes.delete(k),add:k=>classes.add(k),remove:k=>classes.delete(k)},getBoundingClientRect:()=>({top:0,bottom:0})};}
+const $=s=>{if(!nodes.has(s))nodes.set(s,node());return nodes.get(s);};
+const lengths={'.ql':5,'.ql2':6,'.req':3,'.req .rs':3,'.success-points>span':3,'[data-chapter]':6};
+const $$=s=>Array.from({length:lengths[s]||0},(_,i)=>$(s+'#'+i));
+const helpers=source.split('\n').filter(l=>l.startsWith('const clamp=')||l.startsWith('const setText=')).join('\n');
+const segment=source.slice(source.indexOf('const journey='),source.indexOf('/* ---------- Portal into the forest'));
+const context={$,$$,getComputedStyle:()=>({}),phone:{matches:false},TILT:1,reduced:{matches:false},setTimeout:fn=>fn()};
+runInNewContext(helpers+'\n'+segment+`\nsize={W:1200,H:800,keys:keyframesDesktop,mobile:false};globalThis.render=renderJourney;`,context);
+const sample=p=>{context.render(p);return {width:parseFloat($('#traveller').style.width),height:parseFloat($('#traveller').style.height),fill:$('[data-chapter]#5').vars.get('--fill'),draw:$('.seal path').vars.get('--draw'),rows:$$('.success-points>span').map(n=>+n.style.opacity)};};
+const a=sample(.885),b=sample(.91),c=sample(.94),d=sample(.96),e=sample(.98),f=sample(1);
+assert(a.fill>0&&a.fill<b.fill&&b.fill<c.fill&&c.fill<d.fill&&d.fill<e.fill&&e.fill<1,'Final progress must fill continuously through its scroll range.');
+assert(a.draw>b.draw&&b.draw>0);assert.equal(c.draw,0,'The checkmark must finish drawing before the detail rows.');
+assert(a.width<c.width&&c.width<f.width&&a.height<f.height,'The resolution window must grow during verification.');
+assert(c.rows[0]>0&&c.rows[1]===0&&c.rows[2]===0);assert(d.rows[0]===1&&d.rows[1]>0&&d.rows[2]===0);assert(e.rows[1]===1&&e.rows[2]>0);assert(f.rows.every(v=>v===1));
+assert.deepEqual(sample(.94).rows,c.rows,'Scrolling back must restore the same staged state.');
+const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
+assert(html.indexOf('id="about"')<html.indexOf('id="case"'),'The introduction must precede the investigation.');assert.equal([...html.matchAll(/<h1\b/g)].length,1);
+console.log('Passed: intro ordering, continuous verification progress, drawn checkmark, growing window, staggered detail rows and reversible scroll.');

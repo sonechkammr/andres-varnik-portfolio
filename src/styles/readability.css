@@ -26,3 +26,30 @@
   .forest-caption p{font-size:15px}
 }
 @media(max-width:380px){.nav-toggle{font-size:13px}.language-switch button{font-size:13px}}
+
+/* A real introduction before the case study, readable in either theme. */
+.page-start{height:0;scroll-margin-top:0}
+.about{padding:calc(var(--header-h) + 64px) 0 72px;gap:clamp(32px,5vw,80px);align-items:start;border-bottom:1px solid var(--line-strong)}
+.about h1{font-size:clamp(46px,5.2vw,76px);line-height:1.1;max-width:10ch}
+.about p{font-size:clamp(18px,1.45vw,21px);line-height:1.75;max-width:48ch;color:var(--ink)}
+.about p+p{margin-top:22px}
+.about .languages{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;font-size:15px}
+.about .languages li{padding:12px 17px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface);min-width:106px}
+.about .languages span{font-size:14px;color:var(--ink);opacity:.82}
+
+/* Each result line has its own scroll interval. No time-based reveal here. */
+.traveller-success{padding:24px 28px}
+.success-points{display:grid;justify-content:stretch;gap:10px;width:min(100%,660px);text-align:left;font-size:14px;line-height:1.55;margin-top:22px}
+.success-points>span{display:grid;grid-template-columns:80px minmax(0,1fr);gap:12px;will-change:opacity,transform;color:var(--ink)}
+.success-points b{font-size:inherit;font-weight:500;overflow-wrap:anywhere}
+.traveller-success h3,.seal{will-change:transform,opacity}
+.journey-progress button:after{will-change:transform}
+@media(max-width:720px){
+  .about{padding:calc(var(--header-h) + 36px) 0 48px;gap:24px}
+  .about h1{font-size:clamp(42px,11vw,58px);max-width:none}
+  .about p{font-size:18px;line-height:1.7}
+  .about .languages{gap:8px}.about .languages li{padding:10px 12px;min-width:0;flex:1}
+  .about .languages span{font-size:12px}
+  .traveller-success{padding:18px}.success-points{font-size:13px;gap:10px;margin-top:16px}
+  .success-points>span{grid-template-columns:68px minmax(0,1fr);gap:8px}
+}
