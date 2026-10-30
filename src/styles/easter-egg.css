@@ -11,3 +11,22 @@
 .egg #egg-exit{position:absolute;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:20;display:grid;place-items:center;width:46px;height:46px;border:1px solid #e7dec380;border-radius:50%;background:#101d25ed;color:#f5ead0;font:32px/1 Arial,sans-serif;box-shadow:0 4px 18px #0007;cursor:pointer}
 .egg #egg-exit:hover{background:#3b5141;border-color:#ffe0a4}.egg #egg-exit:focus-visible{outline:3px solid #ffd282;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.egg-expanded .egg-screen{animation:none}}
+/* Touch controls have their own dark area, below the game rather than over it. */
+.egg-touch-controls{display:none}
+.egg.egg-touch .egg-touch-controls{display:flex;flex:none;align-items:center;justify-content:space-between;gap:20px;padding:16px max(24px,env(safe-area-inset-right)) 16px max(24px,env(safe-area-inset-left));background:#080f0d;touch-action:none;user-select:none;-webkit-user-select:none}
+.egg-touch-controls button{display:grid;place-items:center;color:#f2e7c8;background:#d7e4cb12;border:1px solid #e5dec64a;box-shadow:inset 0 1px 0 #fff1,0 4px 12px #0003;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.egg-touch-controls button[data-held=true]{background:#edce7d38;border-color:#f0d392;box-shadow:inset 0 2px 5px #0005;color:#ffe6ab}
+.egg-touch-controls button:focus-visible{outline:2px solid #ffd282;outline-offset:2px}
+.egg-dpad{--key:48px;display:grid;grid-template:repeat(3,var(--key))/repeat(3,var(--key));gap:3px}
+.egg-dpad button{border-radius:11px;font:19px/1 Arial,sans-serif;min-width:0;padding:0}
+.egg-dpad [data-egg-control=up]{grid-area:1/2}.egg-dpad [data-egg-control=left]{grid-area:2/1}.egg-dpad [data-egg-control=right]{grid-area:2/3}.egg-dpad [data-egg-control=down]{grid-area:3/2}.egg-dpad>span{grid-area:2/2;display:grid;place-items:center;color:#e4d4a344;font:22px Arial}
+.egg-touch-controls .egg-action{width:88px;height:88px;border-radius:50%;align-content:center;gap:4px;padding:0;font:11px var(--mono)}
+.egg-action>span:first-child{font:28px/1 Arial,sans-serif}.egg-action-label{letter-spacing:.08em}
+.egg.egg-expanded.egg-touch{inset:0;width:100%;height:100%;height:100dvh;max-width:none;border:0;border-radius:0;background:#080f0d;overscroll-behavior:none}
+.egg-expanded.egg-touch .egg-screen{display:block;flex:1;min-height:0;min-width:0;margin-top:max(64px,calc(env(safe-area-inset-top) + 52px));overflow:hidden}
+.egg-expanded.egg-touch canvas{display:block;width:100%;height:100%;max-width:none;max-height:none;aspect-ratio:auto;object-fit:contain}
+.egg-expanded.egg-touch .egg-toolbar{padding-bottom:max(8px,env(safe-area-inset-bottom));min-height:40px}
+.egg.egg-touch:not(.egg-expanded){width:100vw;max-width:none;margin-left:calc(50% - 50vw);border-radius:0}
+.egg-touch .egg-toolbar small{max-width:calc(100% - 110px);font-size:10px;line-height:1.5}
+@media(max-width:359px){.egg-dpad{--key:44px}.egg.egg-touch .egg-touch-controls{padding-left:16px;padding-right:16px}.egg-touch-controls .egg-action{width:78px;height:78px}}
+@media(orientation:landscape) and (max-height:600px){.egg-expanded.egg-touch .egg-screen{margin-top:max(48px,env(safe-area-inset-top))}.egg-expanded.egg-touch .egg-touch-controls{padding-top:5px;padding-bottom:5px}.egg-expanded .egg-dpad{--key:44px;gap:2px}.egg-expanded .egg-touch-controls .egg-action{width:70px;height:70px}.egg-expanded.egg-touch .egg-toolbar{min-height:34px;padding-top:2px;padding-bottom:max(2px,env(safe-area-inset-bottom))}}
