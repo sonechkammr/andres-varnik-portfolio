@@ -13,7 +13,8 @@ A desktop-first Canvas game hidden in the contact section. It starts as a small 
 
 - Three hearts are shared across the run. A hit gives two seconds of invulnerability. Zero hearts means game over; Restart starts from the beginning.
 - Sound is off initially. The sound button unlocks locally synthesized tones and a small original repeating musical pattern; no commercial soundtrack is bundled.
-- Escape pauses, the pause button resumes, and the close button returns to the page. Keyboard handling is scoped to the focused canvas. Losing focus or hiding the tab pauses the game.
+- A persistent top-right close button or Escape exits the expanded game, restores the page position and pauses the run without losing progress. In the embedded runner, Escape pauses. Losing focus or hiding the tab also pauses the game.
+- After victory or Game Over, scrolling upward (or swiping downward) closes the overlay and continues upward on the site. Active gameplay does not consume a wheel gesture as an exit.
 - The expanded overlay traps Tab focus among its controls, has a close button and does not request browser fullscreen or pointer lock.
 - Reduced motion disables the unfolding CSS transition; the game itself is user-initiated animation.
 - Touch/mobile gameplay is not a supported target for this iteration. The game requires keyboard and mouse for its arena.
